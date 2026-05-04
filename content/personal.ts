@@ -15,7 +15,7 @@ export const personal = {
   email: "cahyarizqi3@gmail.com",
   links: {
     linkedin: "https://www.linkedin.com/in/cahya-rizqi",
-    github: "https://github.com/carizsm",
+    github: "",
   },
   about:
     "I build at the intersection of design, engineering, and entrepreneurship. From leading an AI-powered student startup to shipping production web apps and mentoring junior developers, I'm drawn to problems where technical depth meets human craft. Currently a final-year Information Technology student at Telkom University and a Bank Indonesia Scholar.",

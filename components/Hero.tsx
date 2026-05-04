@@ -70,7 +70,7 @@ export function Hero() {
               />
             )}
           </span>
-          <span>Available · Apple Developer Academy '26 candidate</span>
+          <span>Available · Apple Developer Academy &apos;26 candidate</span>
         </motion.div>
 
         <h1
