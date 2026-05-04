@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Inter, Instrument_Serif } from "next/font/google";
 import { ThemeProvider, THEME_INIT_SCRIPT } from "@/components/ThemeProvider";
 import { Nav } from "@/components/Nav";
+import { ScrollAssist } from "@/components/ScrollAssist";
 import { personal } from "@/content/personal";
 import "./globals.css";
 
@@ -91,6 +92,7 @@ export default function RootLayout({
           </a>
           <Nav />
           <main id="main">{children}</main>
+          <ScrollAssist />
         </ThemeProvider>
       </body>
     </html>
