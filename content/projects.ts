@@ -20,7 +20,7 @@
  *   type: "Self-initiated",
  *   featured: false,
  *   links: { live: "https://...", repo: "https://github.com/..." },
- *   image: { src: "/projects/my-project.png", alt: "App home screen" },
+ *   image: { src: "/projects/my-project.svg", alt: "App home screen" },
  * }
  */
 
@@ -69,7 +69,7 @@ export const projects: Project[] = [
     type: "Self-initiated startup",
     featured: true,
     image: {
-      src: "/projects/motiva.png",
+      src: "/projects/motiva.svg",
       alt: "MOTIVA app — coaching dashboard concept",
     },
   },
@@ -92,7 +92,7 @@ export const projects: Project[] = [
     type: "Research / Thesis",
     featured: true,
     image: {
-      src: "/projects/adaptive-pomodoro.png",
+      src: "/projects/adaptive-pomodoro.svg",
       alt: "Adaptive Pomodoro desktop UI — focus detection running",
     },
   },
@@ -106,7 +106,7 @@ export const projects: Project[] = [
     tech: ["REST API", "AI model integration", "Database design"],
     type: "Class/lab project",
     image: {
-      src: "/projects/skin-cancer.png",
+      src: "/projects/skin-cancer.svg",
       alt: "API architecture diagram for the skin cancer detection service",
     },
   },
@@ -120,7 +120,7 @@ export const projects: Project[] = [
     tech: ["Figma", "User research", "Prototyping"],
     type: "Class project",
     image: {
-      src: "/projects/edu-parent.png",
+      src: "/projects/edu-parent.svg",
       alt: "Edu Parent app — onboarding and tracking screens",
     },
   },
@@ -135,7 +135,7 @@ export const projects: Project[] = [
     outcome: "Live deployment in a public high school",
     type: "Real-world deployment",
     image: {
-      src: "/projects/smart-lamp.png",
+      src: "/projects/smart-lamp.svg",
       alt: "Smart Lamp prototype installed in a classroom",
     },
   },
