@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { motion, useReducedMotion } from "motion/react";
 import { projects, type Project } from "@/content/projects";
@@ -59,7 +60,7 @@ function FeaturedProject({
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "0px 0px -8% 0px" }}
       transition={{ duration: 0.6, ease: easing }}
-      className="grid gap-8 sm:grid-cols-12 sm:gap-10"
+      className="glass-panel grid gap-8 rounded-3xl p-5 sm:grid-cols-12 sm:gap-10 sm:p-8"
       aria-labelledby={`project-${project.id}-title`}
     >
       <div className="sm:col-span-12">
@@ -114,7 +115,7 @@ function SplitProject({
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "0px 0px -8% 0px" }}
       transition={{ duration: 0.6, ease: easing }}
-      className="grid items-center gap-8 sm:grid-cols-12 sm:gap-12"
+      className="glass-panel grid items-center gap-8 rounded-3xl p-5 sm:grid-cols-12 sm:gap-12 sm:p-8"
       aria-labelledby={`project-${project.id}-title`}
     >
       <div
@@ -179,7 +180,7 @@ function ProjectCover({
         alt={project.image.alt}
         fill
         sizes={large ? "(min-width: 768px) 1100px, 100vw" : "(min-width: 768px) 640px, 100vw"}
-        className="object-cover transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.02]"
+        className="object-cover object-center transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.02]"
         priority={large}
       />
       <div
@@ -232,12 +233,22 @@ function TechRow({
 }
 
 function ProjectLinks({ project }: { project: Project }) {
-  if (!project.links) return null;
+  const detailHref = project.detailHref ?? `/projects/${project.id}`;
+  if (!project.links && !detailHref) return null;
   const entries = Object.entries(project.links).filter(([, v]) => Boolean(v));
-  if (entries.length === 0) return null;
+  if (entries.length === 0 && !detailHref) return null;
 
   return (
     <div className="mt-5 flex flex-wrap gap-3 text-sm">
+      {detailHref && (
+        <Link
+          href={detailHref}
+          className="group inline-flex items-center gap-1 text-fg transition-colors hover:text-accent"
+        >
+          <span>Details</span>
+          <ArrowUpRight className="h-3.5 w-3.5 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+        </Link>
+      )}
       {entries.map(([label, href]) => (
         <a
           key={label}

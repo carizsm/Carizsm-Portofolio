@@ -52,6 +52,7 @@ export interface Project {
     repo?: string;
     paper?: string;
   };
+  detailHref?: string;
   image?: ProjectImage;
 }
 
