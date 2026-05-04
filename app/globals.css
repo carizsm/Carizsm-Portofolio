@@ -40,6 +40,7 @@
 html {
   color-scheme: light;
   background: var(--color-bg);
+  scroll-behavior: smooth;
 }
 
 html.dark {
@@ -57,6 +58,33 @@ body {
 
 body {
   font-family: var(--font-sans);
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background:
+    radial-gradient(560px circle at 12% 14%, color-mix(in oklch, var(--color-accent) 12%, transparent), transparent 68%),
+    radial-gradient(620px circle at 88% 72%, color-mix(in oklch, var(--color-fg) 8%, transparent), transparent 70%);
+  filter: blur(30px);
+  opacity: 0.35;
+}
+
+main {
+  position: relative;
+  z-index: 1;
+}
+
+.glass-panel {
+  position: relative;
+  border: 1px solid color-mix(in oklch, var(--color-border-strong) 55%, transparent);
+  background: color-mix(in oklch, var(--color-bg) 72%, transparent);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 20px 60px color-mix(in oklch, var(--color-fg) 8%, transparent);
 }
 
 ::selection {
