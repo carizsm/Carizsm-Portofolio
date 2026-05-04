@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" role="img" aria-label="Adaptive Pomodoro cover artwork">
+  <defs>
+    <linearGradient id="ap-bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0F172A"/>
+      <stop offset="100%" stop-color="#1E1B2E"/>
+    </linearGradient>
+    <radialGradient id="ap-glow" cx="0.78" cy="0.34" r="0.45">
+      <stop offset="0%" stop-color="rgba(217,119,87,0.5)"/>
+      <stop offset="100%" stop-color="rgba(217,119,87,0)"/>
+    </radialGradient>
+  </defs>
+  <rect width="1600" height="1000" fill="url(#ap-bg)"/>
+  <rect width="1600" height="1000" fill="url(#ap-glow)"/>
+  <g fill="rgba(217,119,87,0.85)" stroke="rgba(217,119,87,0.4)" stroke-width="0.8">
+    <circle cx="1190" cy="280" r="3"/><circle cx="1140" cy="270" r="3"/><circle cx="1235" cy="290" r="3"/>
+    <circle cx="1100" cy="305" r="3"/><circle cx="1265" cy="320" r="3"/><circle cx="1080" cy="350" r="3"/>
+    <circle cx="1290" cy="360" r="3"/><circle cx="1080" cy="400" r="3"/><circle cx="1295" cy="410" r="3"/>
+    <circle cx="1100" cy="450" r="3"/><circle cx="1280" cy="455" r="3"/><circle cx="1135" cy="490" r="3"/>
+    <circle cx="1255" cy="495" r="3"/><circle cx="1190" cy="510" r="3"/><circle cx="1170" cy="345" r="3"/>
+    <circle cx="1210" cy="345" r="3"/><circle cx="1190" cy="360" r="3"/><circle cx="1175" cy="430" r="3"/>
+    <circle cx="1210" cy="430" r="3"/><circle cx="1192" cy="445" r="3"/>
+  </g>
+  <g stroke="rgba(217,119,87,0.25)" stroke-width="0.6" fill="none">
+    <path d="M1140 270 L1190 280 L1235 290 L1265 320 L1290 360 L1295 410 L1280 455 L1255 495 L1190 510 L1135 490 L1100 450 L1080 400 L1080 350 L1100 305 L1140 270 Z"/>
+  </g>
+  <text x="120" y="220" font-family="Georgia, 'Instrument Serif', serif" font-size="160" font-weight="400" letter-spacing="-5" fill="#F5F5F2">Adaptive</text>
+  <text x="120" y="370" font-family="Georgia, 'Instrument Serif', serif" font-size="160" font-style="italic" font-weight="400" letter-spacing="-5" fill="#F5F5F2">Pomodoro</text>
+  <text x="124" y="430" font-family="ui-sans-serif, system-ui" font-size="22" letter-spacing="6" fill="rgba(245,245,242,0.55)">FOCUS · MEDIAPIPE · MLP</text>
+  <g transform="translate(120 740)" fill="rgba(245,245,242,0.55)" font-family="ui-monospace, monospace" font-size="22">
+    <text>EAR  0.31  ·  MAR  0.18  ·  ROLL  −2.4°  ·  PROBA  0.78</text>
+  </g>
+</svg>
