@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { ArrowDown, ArrowUp } from "lucide-react";
 
 const sectionLinks = [
@@ -12,10 +12,20 @@ const sectionLinks = [
 
 const NAV_OFFSET = 88;
 
+<<<<<<< HEAD
+=======
+function getSections() {
+  return sectionLinks
+    .map((section) => ({ ...section, el: document.getElementById(section.id) }))
+    .filter((section): section is (typeof sectionLinks)[number] & { el: HTMLElement } => Boolean(section.el));
+}
+
+>>>>>>> ffb5f959b3f4d466e87ee293bfb65c96598a8e65
 export function ScrollAssist() {
   const [progress, setProgress] = useState(0);
   const [activeId, setActiveId] = useState<string>(sectionLinks[0].id);
 
+<<<<<<< HEAD
   const sectionEls = useMemo(
     () =>
       sectionLinks
@@ -26,6 +36,11 @@ export function ScrollAssist() {
 
   useEffect(() => {
     const updateProgressAndActive = () => {
+=======
+  useEffect(() => {
+    const updateProgressAndActive = () => {
+      const sections = getSections();
+>>>>>>> ffb5f959b3f4d466e87ee293bfb65c96598a8e65
       const y = window.scrollY;
       const viewport = window.innerHeight;
       const docHeight = document.documentElement.scrollHeight - viewport;
@@ -34,8 +49,13 @@ export function ScrollAssist() {
 
       const marker = y + NAV_OFFSET + 20;
       let current: string = sectionLinks[0].id;
+<<<<<<< HEAD
       for (const section of sectionEls) {
         if (section.offsetTop <= marker) current = section.id;
+=======
+      for (const section of sections) {
+        if (section.el.offsetTop <= marker) current = section.id;
+>>>>>>> ffb5f959b3f4d466e87ee293bfb65c96598a8e65
       }
       setActiveId(current);
     };
@@ -47,7 +67,11 @@ export function ScrollAssist() {
       window.removeEventListener("scroll", updateProgressAndActive);
       window.removeEventListener("resize", updateProgressAndActive);
     };
+<<<<<<< HEAD
   }, [sectionEls]);
+=======
+  }, []);
+>>>>>>> ffb5f959b3f4d466e87ee293bfb65c96598a8e65
 
   const scrollToY = (top: number) =>
     window.scrollTo({ top: Math.max(0, top - NAV_OFFSET), behavior: "smooth" });
@@ -59,29 +83,51 @@ export function ScrollAssist() {
   };
 
   const goNext = () => {
+<<<<<<< HEAD
     const y = window.scrollY + NAV_OFFSET + 8;
     const nextSection = sectionEls.find((section) => section.offsetTop > y + 1);
     if (nextSection) {
       scrollToY(nextSection.offsetTop);
+=======
+    const sections = getSections();
+    const y = window.scrollY + NAV_OFFSET + 8;
+    const nextSection = sections.find((section) => section.el.offsetTop > y + 1);
+    if (nextSection) {
+      scrollToY(nextSection.el.offsetTop);
+>>>>>>> ffb5f959b3f4d466e87ee293bfb65c96598a8e65
       return;
     }
     window.scrollTo({ top: document.documentElement.scrollHeight, behavior: "smooth" });
   };
 
   const goPrev = () => {
+<<<<<<< HEAD
     const y = window.scrollY + NAV_OFFSET + 8;
     const prevSections = sectionEls.filter((section) => section.offsetTop < y - 1);
     const prevSection = prevSections[prevSections.length - 1];
     if (prevSection) {
       scrollToY(prevSection.offsetTop);
+=======
+    const sections = getSections();
+    const y = window.scrollY + NAV_OFFSET + 8;
+    const prevSections = sections.filter((section) => section.el.offsetTop < y - 1);
+    const prevSection = prevSections[prevSections.length - 1];
+    if (prevSection) {
+      scrollToY(prevSection.el.offsetTop);
+>>>>>>> ffb5f959b3f4d466e87ee293bfb65c96598a8e65
       return;
     }
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   return (
+<<<<<<< HEAD
     <aside className="pointer-events-none fixed left-3 top-1/2 z-40 hidden -translate-y-1/2 md:block">
       <div className="pointer-events-auto glass-panel flex w-14 flex-col items-center gap-2 rounded-2xl p-2">
+=======
+    <aside className="group pointer-events-none fixed left-3 top-1/2 z-40 hidden -translate-y-1/2 md:block">
+      <div className="pointer-events-auto glass-panel flex w-14 flex-col items-center gap-2 rounded-2xl p-2 transition-[width] duration-200 group-hover:w-36">
+>>>>>>> ffb5f959b3f4d466e87ee293bfb65c96598a8e65
         <button
           type="button"
           onClick={goPrev}
@@ -91,18 +137,35 @@ export function ScrollAssist() {
           <ArrowUp className="h-4 w-4" />
         </button>
 
+<<<<<<< HEAD
         <div className="flex flex-col gap-1">
+=======
+        <div className="flex w-full flex-col gap-1">
+>>>>>>> ffb5f959b3f4d466e87ee293bfb65c96598a8e65
           {sectionLinks.map((section) => (
             <button
               key={section.id}
               type="button"
               onClick={() => scrollToId(section.id)}
+<<<<<<< HEAD
               className="rounded-md px-2 py-1 text-[10px] font-medium text-fg-muted transition-colors hover:text-fg data-[active=true]:bg-accent data-[active=true]:text-accent-fg"
+=======
+              className="group/item flex items-center justify-start rounded-md px-2 py-1.5 text-xs font-medium text-fg-muted transition-colors hover:text-fg data-[active=true]:bg-accent data-[active=true]:text-accent-fg"
+>>>>>>> ffb5f959b3f4d466e87ee293bfb65c96598a8e65
               data-active={activeId === section.id}
               aria-label={`Ke section ${section.label}`}
               title={section.label}
             >
+<<<<<<< HEAD
               {section.label[0]}
+=======
+              <span className="inline-flex h-4 w-4 shrink-0 items-center justify-center text-[11px]">
+                {section.label[0]}
+              </span>
+              <span className="ml-2 max-w-0 overflow-hidden whitespace-nowrap opacity-0 transition-all duration-200 group-hover:max-w-24 group-hover:opacity-100">
+                {section.label}
+              </span>
+>>>>>>> ffb5f959b3f4d466e87ee293bfb65c96598a8e65
             </button>
           ))}
         </div>
