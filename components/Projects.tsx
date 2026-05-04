@@ -234,8 +234,9 @@ function TechRow({
 
 function ProjectLinks({ project }: { project: Project }) {
   const detailHref = project.detailHref ?? `/projects/${project.id}`;
-  if (!project.links && !detailHref) return null;
-  const entries = Object.entries(project.links).filter(([, v]) => Boolean(v));
+  const links = project.links ?? {};
+  const entries = Object.entries(links).filter(([, v]) => Boolean(v));
+
   if (entries.length === 0 && !detailHref) return null;
 
   return (
