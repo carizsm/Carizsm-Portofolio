@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="750" viewBox="0 0 1200 750" fill="none">
+  <rect width="1200" height="750" fill="#F6F2EC"/>
+  <rect x="104" y="74" width="992" height="602" rx="34" fill="#252320"/>
+  <text x="162" y="162" fill="#F4EEE5" font-family="Arial, sans-serif" font-size="42" font-weight="700">Habit tracker</text>
+  <text x="162" y="207" fill="#A79E95" font-family="Arial, sans-serif" font-size="24">Small routines, visible consistency.</text>
+  <g transform="translate(160 278)">
+    <rect width="880" height="72" rx="22" fill="#F4EEE5"/>
+    <rect x="34" y="24" width="220" height="18" rx="9" fill="#2B2926"/>
+    <circle cx="720" cy="36" r="18" fill="#D97745"/>
+    <circle cx="776" cy="36" r="18" fill="#D97745"/>
+    <circle cx="832" cy="36" r="18" fill="#8F887F"/>
+  </g>
+  <g transform="translate(160 386)">
+    <rect width="880" height="72" rx="22" fill="#F4EEE5"/>
+    <rect x="34" y="24" width="260" height="18" rx="9" fill="#2B2926"/>
+    <circle cx="720" cy="36" r="18" fill="#D97745"/>
+    <circle cx="776" cy="36" r="18" fill="#8F887F"/>
+    <circle cx="832" cy="36" r="18" fill="#8F887F"/>
+  </g>
+  <g transform="translate(160 494)">
+    <rect width="880" height="72" rx="22" fill="#F4EEE5"/>
+    <rect x="34" y="24" width="188" height="18" rx="9" fill="#2B2926"/>
+    <circle cx="720" cy="36" r="18" fill="#D97745"/>
+    <circle cx="776" cy="36" r="18" fill="#D97745"/>
+    <circle cx="832" cy="36" r="18" fill="#D97745"/>
+  </g>
+  <path d="M808 144C842 108 910 103 954 146" stroke="#D97745" stroke-width="16" stroke-linecap="round"/>
+  <path d="M956 146C1002 191 990 260 942 296" stroke="#D97745" stroke-width="16" stroke-linecap="round"/>
+</svg>

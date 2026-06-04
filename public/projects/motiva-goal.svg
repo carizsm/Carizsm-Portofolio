@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="750" viewBox="0 0 1200 750" fill="none">
+  <rect width="1200" height="750" fill="#F6F2EC"/>
+  <rect x="88" y="72" width="1024" height="606" rx="34" fill="#181716"/>
+  <rect x="128" y="118" width="212" height="514" rx="24" fill="#23211F"/>
+  <rect x="374" y="118" width="698" height="246" rx="28" fill="#F4EEE5"/>
+  <rect x="374" y="394" width="334" height="238" rx="28" fill="#2B2926"/>
+  <rect x="738" y="394" width="334" height="238" rx="28" fill="#2B2926"/>
+  <circle cx="196" cy="178" r="38" fill="#D97745"/>
+  <rect x="128" y="262" width="174" height="14" rx="7" fill="#77706A"/>
+  <rect x="128" y="304" width="142" height="14" rx="7" fill="#77706A"/>
+  <rect x="128" y="346" width="154" height="14" rx="7" fill="#77706A"/>
+  <rect x="420" y="164" width="230" height="22" rx="11" fill="#2B2926"/>
+  <rect x="420" y="213" width="508" height="18" rx="9" fill="#BFB4AA"/>
+  <rect x="420" y="252" width="438" height="18" rx="9" fill="#BFB4AA"/>
+  <rect x="420" y="308" width="194" height="18" rx="9" fill="#D97745"/>
+  <path d="M424 562C470 508 510 526 548 482C594 429 650 446 680 430" stroke="#D97745" stroke-width="16" stroke-linecap="round"/>
+  <rect x="780" y="450" width="236" height="22" rx="11" fill="#F4EEE5"/>
+  <rect x="780" y="502" width="190" height="16" rx="8" fill="#77706A"/>
+  <rect x="780" y="548" width="222" height="16" rx="8" fill="#77706A"/>
+  <text x="420" y="590" fill="#F4EEE5" font-family="Arial, sans-serif" font-size="34" font-weight="700">MOTIVA</text>
+  <text x="780" y="590" fill="#F4EEE5" font-family="Arial, sans-serif" font-size="28" font-weight="700">Goal progress</text>
+</svg>

@@ -1,6 +1,29 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { projects } from "@/content/projects";
+import { ArrowLeft } from "lucide-react";
+import { ProjectMediaCarousel } from "@/components/ProjectMediaCarousel";
+import { projects, type Project } from "@/content/projects";
+
+export function generateStaticParams() {
+  return projects.map((project) => ({ id: project.id }));
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}): Promise<Metadata> {
+  const { id } = await params;
+  const project = projects.find((item) => item.id === id);
+
+  if (!project) return {};
+
+  return {
+    title: project.title,
+    description: project.detail?.headline ?? project.description,
+  };
+}
 
 export default async function ProjectDetailPage({
   params,
@@ -11,6 +34,10 @@ export default async function ProjectDetailPage({
   const project = projects.find((item) => item.id === id);
 
   if (!project) notFound();
+
+  if (project.detail) {
+    return <CaseStudyDetail project={project} detail={project.detail} />;
+  }
 
   return (
     <section className="mx-auto w-full max-w-4xl px-5 py-24 sm:px-8 sm:py-28">
@@ -33,6 +60,130 @@ export default async function ProjectDetailPage({
         <Link href="/#work" className="text-fg transition-colors hover:text-accent">
           ← Kembali ke daftar project
         </Link>
+      </div>
+    </section>
+  );
+}
+
+function CaseStudyDetail({
+  project,
+  detail,
+}: {
+  project: Project;
+  detail: NonNullable<Project["detail"]>;
+}) {
+  return (
+    <section className="mx-auto w-full max-w-6xl px-5 py-24 sm:px-8 sm:py-28">
+      <Link
+        href="/#work"
+        className="mb-10 inline-flex items-center gap-2 text-sm text-fg-muted transition-colors hover:text-accent"
+      >
+        <ArrowLeft className="h-4 w-4" />
+        Back to selected work
+      </Link>
+
+      <div className="grid gap-10 lg:grid-cols-[0.95fr_1.05fr] lg:items-end">
+        <div>
+          <p className="mb-4 text-xs uppercase tracking-[0.18em] text-fg-subtle">
+            {detail.eyebrow}
+          </p>
+          <h1 className="serif text-balance text-5xl font-normal tracking-tightish text-fg sm:text-6xl">
+            {project.title}
+          </h1>
+          <p className="mt-5 max-w-2xl text-pretty text-xl leading-relaxed text-fg sm:text-2xl">
+            {detail.headline}
+          </p>
+          <p className="mt-5 max-w-2xl text-pretty leading-relaxed text-fg-muted">
+            {detail.summary}
+          </p>
+
+          <div className="mt-7 flex flex-wrap gap-2 text-xs">
+            <span className="rounded-full border border-border bg-bg px-3 py-1.5 text-fg-muted">
+              {project.role}
+            </span>
+            <span className="rounded-full border border-border bg-bg px-3 py-1.5 text-fg-muted">
+              {project.period}
+            </span>
+            {project.outcome && (
+              <span className="rounded-full border border-accent/40 bg-accent-soft/60 px-3 py-1.5 text-fg">
+                {project.outcome}
+              </span>
+            )}
+          </div>
+        </div>
+
+        <ProjectMediaCarousel media={detail.media} />
+      </div>
+
+      <div className="mt-14 grid gap-3 sm:grid-cols-3">
+        {detail.metrics.map((metric) => (
+          <article
+            key={metric.value}
+            className="rounded-2xl border border-border bg-bg px-5 py-5"
+          >
+            <p className="font-mono text-3xl text-accent">{metric.value}</p>
+            <p className="mt-3 text-sm leading-relaxed text-fg-muted">
+              {metric.label}
+            </p>
+          </article>
+        ))}
+      </div>
+
+      <div className="mt-16 grid gap-4 sm:grid-cols-2">
+        {detail.sections.map((section) => (
+          <article
+            key={section.title}
+            className="rounded-2xl border border-border bg-bg px-5 py-5 sm:px-6 sm:py-6"
+          >
+            <h2 className="serif text-2xl text-fg">{section.title}</h2>
+            <p className="mt-3 text-pretty text-sm leading-relaxed text-fg-muted sm:text-base">
+              {section.body}
+            </p>
+          </article>
+        ))}
+      </div>
+
+      <div className="mt-16 grid gap-10 lg:grid-cols-[0.85fr_1.15fr]">
+        <div>
+          <p className="text-xs uppercase tracking-[0.18em] text-fg-subtle">
+            Core product
+          </p>
+          <h2 className="serif mt-3 text-4xl font-normal tracking-tightish text-fg">
+            Three features, one motivation loop.
+          </h2>
+        </div>
+        <div className="grid gap-3">
+          {detail.features.map((feature) => (
+            <article
+              key={feature.title}
+              className="rounded-2xl border border-border bg-bg px-5 py-4"
+            >
+              <h3 className="text-base font-medium text-fg">{feature.title}</h3>
+              <p className="mt-2 text-sm leading-relaxed text-fg-muted">
+                {feature.body}
+              </p>
+            </article>
+          ))}
+        </div>
+      </div>
+
+      <div className="glass-panel mt-16 rounded-3xl p-6 sm:p-8">
+        <p className="text-xs uppercase tracking-[0.18em] text-fg-subtle">
+          Process
+        </p>
+        <div className="mt-6 grid gap-6 md:grid-cols-3">
+          {detail.process.map((step, index) => (
+            <article key={step.label}>
+              <p className="font-mono text-sm text-accent">
+                {String(index + 1).padStart(2, "0")}
+              </p>
+              <h3 className="serif mt-3 text-2xl text-fg">{step.label}</h3>
+              <p className="mt-3 text-sm leading-relaxed text-fg-muted">
+                {step.body}
+              </p>
+            </article>
+          ))}
+        </div>
       </div>
     </section>
   );
