@@ -67,6 +67,7 @@ export interface ProjectDetail {
   eyebrow: string;
   headline: string;
   summary: string;
+  certificateUrl?: string;
   metrics: ProjectDetailMetric[];
   sections: ProjectDetailSection[];
   features: ProjectDetailFeature[];
@@ -117,6 +118,8 @@ export const projects: Project[] = [
         "An AI companion for students who need structure, motivation, and a place to talk through their goals.",
       summary:
         "MOTIVA was designed as a freemium mobile app for self-development. The core idea is simple: combine a progress tracker, habit tracker, and adaptive AI chatbot so users do not only list their goals, but get nudges that feel personal and timely.",
+      certificateUrl:
+        "https://drive.google.com/file/d/1KLGmUL4kPKsxhiZlAcv8PIEKd-XP94DK/view?usp=sharing",
       metrics: [
         {
           value: "60%",
@@ -190,18 +193,18 @@ export const projects: Project[] = [
       media: [
         {
           src: "/projects/motiva-goal.svg",
-          alt: "MOTIVA goal dashboard placeholder",
-          caption: "Goal dashboard placeholder",
+          alt: "MOTIVA goal dashboard concept",
+          caption: "Goal dashboard concept",
         },
         {
           src: "/projects/motiva-chat.svg",
-          alt: "MOTIVA AI chat placeholder",
-          caption: "AI coaching conversation placeholder",
+          alt: "MOTIVA AI coaching conversation concept",
+          caption: "AI coaching conversation",
         },
         {
           src: "/projects/motiva-habit.svg",
-          alt: "MOTIVA habit tracker placeholder",
-          caption: "Habit tracker placeholder",
+          alt: "MOTIVA habit tracker concept",
+          caption: "Habit tracker concept",
         },
       ],
     },

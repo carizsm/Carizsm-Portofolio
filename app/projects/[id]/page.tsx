@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, ExternalLink } from "lucide-react";
 import { ProjectMediaCarousel } from "@/components/ProjectMediaCarousel";
 import { projects, type Project } from "@/content/projects";
 
@@ -110,6 +110,18 @@ function CaseStudyDetail({
               </span>
             )}
           </div>
+
+          {detail.certificateUrl && (
+            <a
+              href={detail.certificateUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-5 inline-flex items-center gap-2 rounded-full border border-accent/50 bg-accent px-4 py-2 text-sm font-medium text-accent-fg transition-colors hover:bg-accent-hover"
+            >
+              View competition certificate
+              <ExternalLink className="h-4 w-4" />
+            </a>
+          )}
         </div>
 
         <ProjectMediaCarousel media={detail.media} />
