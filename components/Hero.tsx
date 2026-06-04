@@ -70,7 +70,7 @@ export function Hero() {
               />
             )}
           </span>
-          <span>Available · Apple Developer Academy &apos;26 candidate</span>
+          <span>Available · Product-minded developer & designer</span>
         </motion.div>
 
         <h1
@@ -145,7 +145,7 @@ export function Hero() {
               <dt className="text-xs uppercase tracking-[0.16em] text-fg-subtle">
                 Open to
               </dt>
-              <dd className="text-fg">iOS · Apple Dev Academy</dd>
+              <dd className="text-fg">Frontend · Product collaborations</dd>
             </div>
           </motion.dl>
         </div>
