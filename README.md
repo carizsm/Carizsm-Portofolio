@@ -54,7 +54,18 @@ Edit `app/globals.css`:
 
 ## Deploy to Vercel
 
+This project is ready for Vercel as a Next.js app. The current portfolio uses local TypeScript content files, so Supabase/database setup is not required yet.
+
 1. Push repository to GitHub.
-2. Import project in Vercel.
-3. Framework preset: Next.js.
-4. Deploy (no extra env vars required for current version).
+2. Import the repository in Vercel.
+3. Use the **Next.js** framework preset. The included `vercel.json` pins:
+   - Install command: `npm ci`
+   - Build command: `npm run build`
+4. Optional but recommended: add `NEXT_PUBLIC_SITE_URL` in Vercel Project Settings → Environment Variables. Use the canonical production URL, for example `https://cahya.dev`.
+5. Deploy.
+
+Vercel also provides `VERCEL_PROJECT_PRODUCTION_URL`/`VERCEL_URL`; the app falls back to those values for metadata, sitemap, and robots.txt if `NEXT_PUBLIC_SITE_URL` is not set.
+
+### Future Supabase setup
+
+Only add Supabase if you introduce dynamic data such as a CMS, contact submissions, or authenticated dashboards. At that point, add the required Supabase environment variables in Vercel and keep secret service-role keys server-only.

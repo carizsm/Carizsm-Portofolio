@@ -3,10 +3,13 @@ import { ThemeProvider, THEME_INIT_SCRIPT } from "@/components/ThemeProvider";
 import { Nav } from "@/components/Nav";
 import { ScrollAssist } from "@/components/ScrollAssist";
 import { personal } from "@/content/personal";
+import { getSiteUrl } from "@/lib/site-url";
 import "./globals.css";
 
+const siteUrl = getSiteUrl();
+
 export const metadata: Metadata = {
-  metadataBase: new URL(personal.url),
+  metadataBase: new URL(siteUrl),
   title: {
     default: `${personal.name} — Designer · Engineer · Builder`,
     template: `%s — ${personal.shortName}`,
@@ -27,7 +30,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: personal.url,
+    url: siteUrl,
     title: `${personal.name} — Designer · Engineer · Builder`,
     description: personal.tagline,
     siteName: personal.shortName,
