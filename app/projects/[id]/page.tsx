@@ -158,10 +158,10 @@ function CaseStudyDetail({
       <div className="mt-16 grid gap-10 lg:grid-cols-[0.85fr_1.15fr]">
         <div>
           <p className="text-xs uppercase tracking-[0.18em] text-fg-subtle">
-            Core product
+            {detail.featureEyebrow ?? "Core product"}
           </p>
           <h2 className="serif mt-3 text-4xl font-normal tracking-tightish text-fg">
-            Three features, one motivation loop.
+            {detail.featureHeadline ?? "Three features, one motivation loop."}
           </h2>
         </div>
         <div className="grid gap-3">

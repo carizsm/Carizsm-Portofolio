@@ -41,6 +41,7 @@ export interface ProjectMedia {
   src: string;
   alt: string;
   caption: string;
+  fit?: "cover" | "contain";
 }
 
 export interface ProjectDetailSection {
@@ -68,6 +69,8 @@ export interface ProjectDetail {
   headline: string;
   summary: string;
   certificateUrl?: string;
+  featureEyebrow?: string;
+  featureHeadline?: string;
   metrics: ProjectDetailMetric[];
   sections: ProjectDetailSection[];
   features: ProjectDetailFeature[];
@@ -230,6 +233,131 @@ export const projects: Project[] = [
     image: {
       src: "/projects/adaptive-pomodoro.svg",
       alt: "Adaptive Pomodoro desktop UI — focus detection running",
+    },
+    detail: {
+      eyebrow: "Final-year thesis / PomodoroNet",
+      headline:
+        "A real-time Pomodoro system that pauses and resumes itself based on facial-landmark focus detection.",
+      summary:
+        "PomodoroNet combines a desktop Pomodoro timer with MediaPipe Face Mesh and an MLP classifier trained with SMOTE-balanced data. The system samples the webcam once per second, extracts five geometric facial features, classifies focus probability, then uses timed buffers before changing the Pomodoro state.",
+      featureEyebrow: "System design",
+      featureHeadline:
+        "Lightweight detection, buffered intervention, measurable runtime.",
+      metrics: [
+        {
+          value: "5.84 ms",
+          label:
+            "average end-to-end frame latency during a 25-minute Pomodoro session, with p95 at 7.92 ms",
+        },
+        {
+          value: "100%",
+          label:
+            "functional pass rate across eight controlled scenarios, each repeated three times",
+        },
+        {
+          value: "0.708",
+          label:
+            "best ROC-AUC from the MLP + SMOTE model selected for system integration",
+        },
+      ],
+      sections: [
+        {
+          title: "Problem",
+          body:
+            "Traditional Pomodoro timers assume the user is focused for the full 25-minute interval. The research gap was to connect lightweight facial-expression recognition with a time-management system that can react when a student looks away, closes their eyes, uses a phone, or disappears from the camera.",
+        },
+        {
+          title: "Approach",
+          body:
+            "The system maps facial coordinates with MediaPipe Face Mesh, then converts landmarks into five geometric features: eye aspect ratio, mouth aspect ratio, head roll, brow drop, and face length. Those values become the input for a focus classifier rather than a heavy end-to-end vision model.",
+        },
+        {
+          title: "Model Selection",
+          body:
+            "I compared SVM, Random Forest, and MLP classifiers after standardization and SMOTE balancing. MLP + SMOTE was selected because it reached the strongest ROC-AUC while staying competitive on F1-score, then used a G-Mean threshold of 0.5098 for focus probability.",
+        },
+        {
+          title: "Adaptive Timer Logic",
+          body:
+            "The timer does not pause from a single unfocused frame. It waits for five consecutive seconds of unfocused or no-face states before pausing, and uses a three-second recovery buffer before resuming. This keeps brief glances from interrupting the study flow.",
+        },
+        {
+          title: "Evaluation",
+          body:
+            "Functional testing covered normal focus, look-away distractions, short distractions, eyes closed, phone/looking down, recovery after pause, no-face detection, and natural movement. Every scenario passed, though natural movement produced two false pauses, which became the main limitation to address next.",
+        },
+        {
+          title: "Runtime",
+          body:
+            "During the 25-minute benchmark, the system averaged 4.37% CPU usage and 233.66 MB RAM, with 97.95% face-detection success and zero failed inferences. MediaPipe dominated latency at 4.20 ms, while model inference averaged only 0.41 ms.",
+        },
+      ],
+      features: [
+        {
+          title: "Geometric Focus Features",
+          body:
+            "Extracts compact face ratios and angles from landmarks, making the detector lightweight enough for real-time desktop use.",
+        },
+        {
+          title: "Buffered Pause/Resume Control",
+          body:
+            "Uses consecutive-state buffers before pausing or resuming, so a short glance away does not immediately disrupt the Pomodoro session.",
+        },
+        {
+          title: "Frame-Level Evaluation Logs",
+          body:
+            "Records latency, CPU, RAM, face-detection rate, probability distribution, and scenario outcomes so the system can be evaluated quantitatively.",
+        },
+      ],
+      process: [
+        {
+          label: "Dataset & Features",
+          body:
+            "Extracted MediaPipe landmarks from RAF-DB images, converted seven emotions into focused and unfocused labels, and generated five normalized geometric features.",
+        },
+        {
+          label: "Model Training",
+          body:
+            "Standardized feature splits, applied SMOTE to the training set, compared SVM, RF, and MLP, then selected MLP + SMOTE using ROC-AUC and a G-Mean threshold.",
+        },
+        {
+          label: "System Testing",
+          body:
+            "Integrated the model into a desktop Pomodoro state machine and tested latency, resource usage, and behavior across eight real-time scenarios.",
+        },
+      ],
+      media: [
+        {
+          src: "/projects/adaptive-pomodoro-system.svg",
+          alt: "PomodoroNet architecture and evaluation snapshot",
+          caption: "PomodoroNet pipeline",
+          fit: "cover",
+        },
+        {
+          src: "/projects/adaptive-pomodoro-latency.png",
+          alt: "Pipeline latency breakdown chart for Adaptive Pomodoro",
+          caption: "Latency breakdown",
+          fit: "contain",
+        },
+        {
+          src: "/projects/adaptive-pomodoro-resource.png",
+          alt: "CPU and RAM usage distribution charts for Adaptive Pomodoro",
+          caption: "CPU and RAM distribution",
+          fit: "contain",
+        },
+        {
+          src: "/projects/adaptive-pomodoro-features.png",
+          alt: "Geometric feature distribution charts for Adaptive Pomodoro",
+          caption: "Geometric feature distributions",
+          fit: "contain",
+        },
+        {
+          src: "/projects/adaptive-pomodoro-probability.png",
+          alt: "Model focus probability distribution chart for Adaptive Pomodoro",
+          caption: "Focus probability distribution",
+          fit: "contain",
+        },
+      ],
     },
   },
   {

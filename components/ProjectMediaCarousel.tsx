@@ -44,7 +44,11 @@ export function ProjectMediaCarousel({ media }: { media: ProjectMedia[] }) {
               alt={active.alt}
               fill
               sizes="(min-width: 768px) 896px, 100vw"
-              className="object-cover"
+              className={cn(
+                active.fit === "contain"
+                  ? "object-contain p-3 sm:p-5"
+                  : "object-cover",
+              )}
               priority
             />
           </motion.div>

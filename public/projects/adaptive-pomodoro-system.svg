@@ -1,0 +1,82 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" role="img" aria-label="PomodoroNet adaptive focus detection system diagram">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0F172A"/>
+      <stop offset="100%" stop-color="#1E1B2E"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0.76" cy="0.26" r="0.52">
+      <stop offset="0%" stop-color="#D97757" stop-opacity="0.42"/>
+      <stop offset="100%" stop-color="#D97757" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="150%">
+      <feDropShadow dx="0" dy="20" stdDeviation="28" flood-color="#020617" flood-opacity="0.34"/>
+    </filter>
+  </defs>
+
+  <rect width="1600" height="1000" fill="url(#bg)"/>
+  <rect width="1600" height="1000" fill="url(#glow)"/>
+
+  <g opacity="0.18" stroke="#F5F5F2" stroke-width="1">
+    <path d="M0 190H1600M0 340H1600M0 490H1600M0 640H1600M0 790H1600"/>
+    <path d="M190 0V1000M390 0V1000M590 0V1000M790 0V1000M990 0V1000M1190 0V1000M1390 0V1000"/>
+  </g>
+
+  <text x="96" y="145" fill="#F5F5F2" font-family="Georgia, 'Instrument Serif', serif" font-size="96" letter-spacing="-1">
+    PomodoroNet
+  </text>
+  <text x="100" y="194" fill="#F5F5F2" fill-opacity="0.58" font-family="Inter, ui-sans-serif, system-ui" font-size="24" letter-spacing="5">
+    REAL-TIME FOCUS DETECTION PIPELINE
+  </text>
+
+  <g filter="url(#shadow)">
+    <rect x="92" y="294" width="304" height="190" rx="26" fill="#F5F5F2" fill-opacity="0.10" stroke="#F5F5F2" stroke-opacity="0.22"/>
+    <rect x="456" y="294" width="304" height="190" rx="26" fill="#F5F5F2" fill-opacity="0.10" stroke="#F5F5F2" stroke-opacity="0.22"/>
+    <rect x="820" y="294" width="304" height="190" rx="26" fill="#F5F5F2" fill-opacity="0.10" stroke="#F5F5F2" stroke-opacity="0.22"/>
+    <rect x="1184" y="294" width="304" height="190" rx="26" fill="#F5F5F2" fill-opacity="0.10" stroke="#F5F5F2" stroke-opacity="0.22"/>
+  </g>
+
+  <g font-family="Inter, ui-sans-serif, system-ui">
+    <text x="126" y="356" fill="#F5F5F2" font-size="34" font-weight="700">Webcam frame</text>
+    <text x="126" y="405" fill="#F5F5F2" fill-opacity="0.64" font-size="22">1 Hz capture interval</text>
+    <text x="126" y="439" fill="#D97757" font-family="ui-monospace, monospace" font-size="20">capture mean 0.36 ms</text>
+
+    <text x="490" y="356" fill="#F5F5F2" font-size="34" font-weight="700">Face Mesh</text>
+    <text x="490" y="405" fill="#F5F5F2" fill-opacity="0.64" font-size="22">landmarks to geometry</text>
+    <text x="490" y="439" fill="#D97757" font-family="ui-monospace, monospace" font-size="20">MediaPipe mean 4.20 ms</text>
+
+    <text x="854" y="356" fill="#F5F5F2" font-size="34" font-weight="700">MLP + SMOTE</text>
+    <text x="854" y="405" fill="#F5F5F2" fill-opacity="0.64" font-size="22">focused / unfocused</text>
+    <text x="854" y="439" fill="#D97757" font-family="ui-monospace, monospace" font-size="20">threshold 0.5098</text>
+
+    <text x="1218" y="356" fill="#F5F5F2" font-size="34" font-weight="700">Timer control</text>
+    <text x="1218" y="405" fill="#F5F5F2" fill-opacity="0.64" font-size="22">pause, resume, notify</text>
+    <text x="1218" y="439" fill="#D97757" font-family="ui-monospace, monospace" font-size="20">5 s buffer</text>
+  </g>
+
+  <g fill="none" stroke="#D97757" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M396 389H456"/>
+    <path d="M760 389H820"/>
+    <path d="M1124 389H1184"/>
+    <path d="M440 372L456 389L440 406"/>
+    <path d="M804 372L820 389L804 406"/>
+    <path d="M1168 372L1184 389L1168 406"/>
+  </g>
+
+  <g transform="translate(108 590)">
+    <rect width="1384" height="260" rx="30" fill="#F5F5F2" fill-opacity="0.08" stroke="#F5F5F2" stroke-opacity="0.18"/>
+    <text x="38" y="72" fill="#F5F5F2" font-family="Georgia, 'Instrument Serif', serif" font-size="52">Evaluation snapshot</text>
+    <g font-family="Inter, ui-sans-serif, system-ui">
+      <text x="42" y="140" fill="#D97757" font-size="58" font-family="ui-monospace, monospace">5.84 ms</text>
+      <text x="42" y="178" fill="#F5F5F2" fill-opacity="0.62" font-size="21">average total latency</text>
+
+      <text x="386" y="140" fill="#D97757" font-size="58" font-family="ui-monospace, monospace">100%</text>
+      <text x="386" y="178" fill="#F5F5F2" fill-opacity="0.62" font-size="21">functional pass rate</text>
+
+      <text x="702" y="140" fill="#D97757" font-size="58" font-family="ui-monospace, monospace">4.37%</text>
+      <text x="702" y="178" fill="#F5F5F2" fill-opacity="0.62" font-size="21">average CPU usage</text>
+
+      <text x="1042" y="140" fill="#D97757" font-size="58" font-family="ui-monospace, monospace">0.708</text>
+      <text x="1042" y="178" fill="#F5F5F2" fill-opacity="0.62" font-size="21">best MLP+SMOTE AUC</text>
+    </g>
+  </g>
+</svg>
