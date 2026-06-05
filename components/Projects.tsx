@@ -2,8 +2,10 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, ChevronLeft, ChevronRight } from "lucide-react";
 import { motion, useReducedMotion } from "motion/react";
+import type { ReactNode } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { projects, type Project } from "@/content/projects";
 import { SectionHead, SectionShell } from "./Section";
 import { cn } from "@/lib/utils";
@@ -11,150 +13,203 @@ import { cn } from "@/lib/utils";
 const easing = [0.22, 1, 0.36, 1] as const;
 
 export function Projects() {
-  return (
-    <SectionShell id="work" className="!py-24 sm:!py-32">
-      <SectionHead
-        index="02"
-        label="Selected Work"
-        title={
-          <>
-            Five projects, picked for the way
-            <br />
-            <span className="italic text-fg-muted">
-              they bend across disciplines.
-            </span>
-          </>
-        }
-      />
+  const [activeIndex, setActiveIndex] = useState(0);
+  const railRef = useRef<HTMLDivElement>(null);
+  const scrollFrameRef = useRef<number | null>(null);
+  const reduce = useReducedMotion();
 
-      <div className="flex flex-col gap-20 sm:gap-28">
-        {projects.map((project, idx) =>
-          project.featured ? (
-            <FeaturedProject key={project.id} project={project} index={idx} />
-          ) : (
-            <SplitProject
+  const scrollToProject = useCallback(
+    (index: number) => {
+      const nextIndex = Math.max(0, Math.min(projects.length - 1, index));
+      const node = railRef.current?.querySelector<HTMLElement>(
+        `[data-project-card="${nextIndex}"]`,
+      );
+
+      node?.scrollIntoView({
+        behavior: reduce ? "auto" : "smooth",
+        block: "nearest",
+        inline: "center",
+      });
+      setActiveIndex(nextIndex);
+    },
+    [reduce],
+  );
+
+  const handleRailScroll = useCallback(() => {
+    if (!railRef.current) return;
+    if (scrollFrameRef.current) window.cancelAnimationFrame(scrollFrameRef.current);
+
+    scrollFrameRef.current = window.requestAnimationFrame(() => {
+      const rail = railRef.current;
+      if (!rail) return;
+
+      const railCenter = rail.scrollLeft + rail.clientWidth / 2;
+      const cards = Array.from(
+        rail.querySelectorAll<HTMLElement>("[data-project-card]"),
+      );
+
+      const nearest = cards.reduce(
+        (best, card) => {
+          const center = card.offsetLeft + card.offsetWidth / 2;
+          const distance = Math.abs(center - railCenter);
+          const index = Number(card.dataset.projectCard ?? 0);
+          return distance < best.distance ? { index, distance } : best;
+        },
+        { index: activeIndex, distance: Number.POSITIVE_INFINITY },
+      );
+
+      setActiveIndex(nearest.index);
+    });
+  }, [activeIndex]);
+
+  useEffect(() => {
+    return () => {
+      if (scrollFrameRef.current) window.cancelAnimationFrame(scrollFrameRef.current);
+    };
+  }, []);
+
+  return (
+    <SectionShell id="work" className="!max-w-none overflow-hidden !py-24 sm:!py-32">
+      <div className="mx-auto max-w-6xl">
+        <SectionHead
+          index="02"
+          label="Selected Work"
+          title={
+            <>
+              Five projects, picked for the way
+              <br />
+              <span className="italic text-fg-muted">
+                they bend across disciplines.
+              </span>
+            </>
+          }
+        />
+
+        <div className="mb-5 flex items-center justify-between gap-4">
+          <p className="max-w-md text-sm leading-relaxed text-fg-muted">
+            A sideways view across product, research, design, and systems work.
+          </p>
+          <div className="hidden items-center gap-2 sm:flex">
+            <RailButton
+              label="Previous project"
+              disabled={activeIndex === 0}
+              onClick={() => scrollToProject(activeIndex - 1)}
+            >
+              <ChevronLeft className="h-4 w-4" />
+            </RailButton>
+            <RailButton
+              label="Next project"
+              disabled={activeIndex === projects.length - 1}
+              onClick={() => scrollToProject(activeIndex + 1)}
+            >
+              <ChevronRight className="h-4 w-4" />
+            </RailButton>
+          </div>
+        </div>
+      </div>
+
+      <div
+        ref={railRef}
+        onScroll={handleRailScroll}
+        className="fade-edge-r -mx-5 flex snap-x snap-mandatory gap-4 overflow-x-auto scroll-smooth px-5 pb-6 pt-2 [scrollbar-width:none] sm:-mx-8 sm:gap-5 sm:px-8 [&::-webkit-scrollbar]:hidden"
+        aria-label="Selected work carousel"
+      >
+        {projects.map((project, index) => (
+          <ProjectSlide
+            key={project.id}
+            project={project}
+            index={index}
+            active={index === activeIndex}
+          />
+        ))}
+      </div>
+
+      <div className="mx-auto mt-2 flex max-w-6xl items-center justify-between gap-5">
+        <div className="flex gap-2">
+          {projects.map((project, index) => (
+            <button
               key={project.id}
-              project={project}
-              index={idx}
-              flipped={idx % 2 === 1}
-            />
-          ),
-        )}
+              type="button"
+              onClick={() => scrollToProject(index)}
+              title={`Show ${project.title}`}
+              className={cn(
+                "h-1.5 rounded-full transition-all duration-300",
+                index === activeIndex
+                  ? "w-8 bg-accent"
+                  : "w-2 bg-border-strong hover:bg-fg-subtle",
+              )}
+            >
+              <span className="sr-only">Show {project.title}</span>
+            </button>
+          ))}
+        </div>
+        <p className="font-mono text-xs text-fg-subtle">
+          {String(activeIndex + 1).padStart(2, "0")} / {String(projects.length).padStart(2, "0")}
+        </p>
       </div>
     </SectionShell>
   );
 }
 
-function FeaturedProject({
+function ProjectSlide({
   project,
   index,
+  active,
 }: {
   project: Project;
   index: number;
+  active: boolean;
 }) {
   const reduce = useReducedMotion();
 
   return (
     <motion.article
-      initial={reduce ? { opacity: 0 } : { opacity: 0, y: 24 }}
-      whileInView={{ opacity: 1, y: 0 }}
+      data-project-card={index}
+      initial={reduce ? { opacity: 0 } : { opacity: 0, x: 36 }}
+      whileInView={{ opacity: 1, x: 0 }}
       viewport={{ once: true, margin: "0px 0px -8% 0px" }}
-      transition={{ duration: 0.6, ease: easing }}
-      className="glass-panel grid gap-8 rounded-3xl p-5 sm:grid-cols-12 sm:gap-10 sm:p-8"
+      transition={{ duration: 0.58, ease: easing, delay: Math.min(index * 0.05, 0.18) }}
+      className={cn(
+        "group relative grid w-[72vw] max-w-[620px] shrink-0 snap-center overflow-hidden rounded-2xl border bg-bg text-fg transition-all duration-500 sm:w-[52vw] lg:w-[44vw] xl:w-[590px]",
+        active
+          ? "border-accent/45 shadow-[0_28px_90px_color-mix(in_oklch,var(--color-fg)_12%,transparent)]"
+          : "border-border opacity-72 shadow-none hover:opacity-100",
+      )}
       aria-labelledby={`project-${project.id}-title`}
     >
-      <div className="sm:col-span-12">
-        <ProjectCover project={project} large />
-      </div>
+      <ProjectCover project={project} active={active} />
 
-      <div className="sm:col-span-5">
-        <ProjectIndex index={index + 1} />
-        <h3
-          id={`project-${project.id}-title`}
-          className="serif mt-3 text-balance text-4xl font-normal tracking-tightish text-fg sm:text-5xl"
-        >
-          {project.title}
-        </h3>
-        <p className="mt-3 text-sm text-fg-subtle">{project.role}</p>
-        <p className="mt-1 text-sm text-fg-subtle">{project.period}</p>
-      </div>
+      <div className="relative z-10 mt-auto border-t border-border bg-bg/90 px-4 py-4 backdrop-blur">
+        <ProjectIndex index={index + 1} type={project.type} />
 
-      <div className="sm:col-span-7 sm:pt-1">
-        <p className="text-pretty text-base leading-relaxed text-fg sm:text-lg">
-          {project.description}
-        </p>
+        <div className="mt-3 grid gap-3 lg:grid-cols-[0.7fr_1fr] lg:items-start">
+          <div>
+            <h3
+              id={`project-${project.id}-title`}
+              className="serif text-balance text-2xl font-normal tracking-tightish text-fg sm:text-3xl"
+            >
+              {project.title}
+            </h3>
+            <p className="mt-2 text-xs text-fg-subtle sm:text-sm">{project.role}</p>
+            <p className="mt-1 text-xs text-fg-subtle sm:text-sm">{project.period}</p>
+          </div>
 
-        {project.outcome && (
-          <p className="mt-5 inline-flex items-start gap-2 rounded-xl border border-accent/40 bg-accent-soft/50 px-3 py-2 text-sm text-fg">
-            <span className="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-accent" />
-            <span>{project.outcome}</span>
-          </p>
-        )}
+          <div>
+            <p className="line-clamp-3 text-pretty text-xs leading-relaxed text-fg-muted sm:text-sm">
+              {project.description}
+            </p>
 
-        <TechRow tech={project.tech} type={project.type} />
-        <ProjectLinks project={project} />
-      </div>
-    </motion.article>
-  );
-}
+            {project.outcome && (
+              <p className="mt-3 inline-flex items-start gap-2 rounded-lg border border-accent/35 bg-accent-soft/55 px-2.5 py-1.5 text-xs text-fg sm:text-sm">
+                <span className="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-accent" />
+                <span className="line-clamp-2">{project.outcome}</span>
+              </p>
+            )}
 
-function SplitProject({
-  project,
-  index,
-  flipped,
-}: {
-  project: Project;
-  index: number;
-  flipped: boolean;
-}) {
-  const reduce = useReducedMotion();
-
-  return (
-    <motion.article
-      initial={reduce ? { opacity: 0 } : { opacity: 0, y: 24 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "0px 0px -8% 0px" }}
-      transition={{ duration: 0.6, ease: easing }}
-      className="glass-panel grid items-center gap-8 rounded-3xl p-5 sm:grid-cols-12 sm:gap-12 sm:p-8"
-      aria-labelledby={`project-${project.id}-title`}
-    >
-      <div
-        className={cn(
-          "sm:col-span-7",
-          flipped ? "sm:order-2" : "sm:order-1",
-        )}
-      >
-        <ProjectCover project={project} />
-      </div>
-      <div
-        className={cn(
-          "sm:col-span-5",
-          flipped ? "sm:order-1" : "sm:order-2",
-        )}
-      >
-        <ProjectIndex index={index + 1} />
-        <h3
-          id={`project-${project.id}-title`}
-          className="serif mt-3 text-balance text-3xl font-normal tracking-tightish text-fg sm:text-4xl"
-        >
-          {project.title}
-        </h3>
-        <p className="mt-2 text-sm text-fg-subtle">{project.role}</p>
-        <p className="text-sm text-fg-subtle">{project.period}</p>
-
-        <p className="mt-5 text-pretty text-base leading-relaxed text-fg-muted">
-          {project.description}
-        </p>
-
-        {project.outcome && (
-          <p className="mt-4 text-sm text-fg">
-            <span className="text-accent">→ </span>
-            {project.outcome}
-          </p>
-        )}
-
-        <TechRow tech={project.tech} type={project.type} compact />
-        <ProjectLinks project={project} />
+            <TechRow tech={project.tech} />
+            <ProjectLinks project={project} />
+          </div>
+        </div>
       </div>
     </motion.article>
   );
@@ -162,72 +217,65 @@ function SplitProject({
 
 function ProjectCover({
   project,
-  large = false,
+  active,
 }: {
   project: Project;
-  large?: boolean;
+  active: boolean;
 }) {
   if (!project.image) return null;
+
   return (
-    <div
-      className={cn(
-        "group relative overflow-hidden rounded-2xl border border-border bg-bg-elevated",
-        large ? "aspect-[16/9]" : "aspect-[4/3]",
-      )}
-    >
+    <div className="relative h-[210px] overflow-hidden bg-bg-elevated sm:h-[235px] lg:h-[255px]">
       <Image
         src={project.image.src}
         alt={project.image.alt}
         fill
-        sizes={large ? "(min-width: 768px) 1100px, 100vw" : "(min-width: 768px) 640px, 100vw"}
-        className="object-cover object-center transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.02]"
-        priority={large}
+        sizes="(min-width: 1280px) 840px, (min-width: 768px) 72vw, 82vw"
+        className={cn(
+          "object-cover object-[center_8%] transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]",
+          active ? "scale-100" : "scale-[0.985] group-hover:scale-100",
+        )}
+        priority={project.featured}
       />
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-0 ring-1 ring-inset ring-fg/[0.03]"
+        className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-bg/82"
+      />
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-3 rounded-[1.1rem] border border-fg/10"
       />
     </div>
   );
 }
 
-function ProjectIndex({ index }: { index: number }) {
+function ProjectIndex({ index, type }: { index: number; type: Project["type"] }) {
   return (
-    <div className="flex items-center gap-2 text-xs uppercase tracking-[0.18em] text-fg-subtle">
+    <div className="flex flex-wrap items-center gap-2 text-xs uppercase tracking-[0.18em] text-fg-subtle">
       <span className="font-mono text-accent">
         {String(index).padStart(2, "0")}
       </span>
-      <span aria-hidden className="h-px w-6 bg-border-strong" />
+      <span aria-hidden className="h-px w-7 bg-border-strong" />
       <span>Project</span>
+      <span className="hidden text-fg-subtle sm:inline">/</span>
+      <span className="hidden normal-case tracking-normal text-fg-subtle sm:inline">
+        {type}
+      </span>
     </div>
   );
 }
 
-function TechRow({
-  tech,
-  type,
-  compact = false,
-}: {
-  tech: string[];
-  type: Project["type"];
-  compact?: boolean;
-}) {
+function TechRow({ tech }: { tech: string[] }) {
   return (
-    <div
-      className={cn(
-        "mt-6 flex flex-wrap items-center gap-2 text-xs",
-        compact ? "mt-5" : "",
-      )}
-    >
-      {tech.map((t) => (
+    <div className="mt-4 flex flex-wrap items-center gap-1.5 text-[11px] sm:text-xs">
+      {tech.slice(0, 5).map((t) => (
         <span
           key={t}
-          className="rounded-full border border-border bg-bg px-2.5 py-1 text-fg-muted"
+          className="rounded-full border border-border bg-bg px-2 py-0.5 text-fg-muted"
         >
           {t}
         </span>
       ))}
-      <span className="ml-auto hidden text-fg-subtle sm:inline">{type}</span>
     </div>
   );
 }
@@ -240,14 +288,14 @@ function ProjectLinks({ project }: { project: Project }) {
   if (entries.length === 0 && !detailHref) return null;
 
   return (
-    <div className="mt-5 flex flex-wrap gap-3 text-sm">
+    <div className="mt-4 flex flex-wrap gap-3 text-sm">
       {detailHref && (
         <Link
           href={detailHref}
-          className="group inline-flex items-center gap-1 text-fg transition-colors hover:text-accent"
+          className="group/link inline-flex items-center gap-1 text-fg transition-colors hover:text-accent"
         >
           <span>Details</span>
-          <ArrowUpRight className="h-3.5 w-3.5 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+          <ArrowUpRight className="h-3.5 w-3.5 transition-transform group-hover/link:-translate-y-0.5 group-hover/link:translate-x-0.5" />
         </Link>
       )}
       {entries.map(([label, href]) => (
@@ -256,12 +304,37 @@ function ProjectLinks({ project }: { project: Project }) {
           href={href as string}
           target="_blank"
           rel="noopener noreferrer"
-          className="group inline-flex items-center gap-1 text-fg transition-colors hover:text-accent"
+          className="group/link inline-flex items-center gap-1 text-fg transition-colors hover:text-accent"
         >
           <span className="capitalize">{label}</span>
-          <ArrowUpRight className="h-3.5 w-3.5 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+          <ArrowUpRight className="h-3.5 w-3.5 transition-transform group-hover/link:-translate-y-0.5 group-hover/link:translate-x-0.5" />
         </a>
       ))}
     </div>
+  );
+}
+
+function RailButton({
+  label,
+  disabled,
+  onClick,
+  children,
+}: {
+  label: string;
+  disabled: boolean;
+  onClick: () => void;
+  children: ReactNode;
+}) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      disabled={disabled}
+      title={label}
+      className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-border bg-bg text-fg-muted transition-colors hover:border-accent/45 hover:text-accent disabled:cursor-not-allowed disabled:opacity-35"
+    >
+      {children}
+      <span className="sr-only">{label}</span>
+    </button>
   );
 }
