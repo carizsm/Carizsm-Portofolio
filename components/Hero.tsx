@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useEffect, useReducer, useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { ArrowDown, MapPin } from "lucide-react";
@@ -49,7 +50,25 @@ export function Hero() {
         </div>
       </div>
 
-      <div className="mx-auto w-full max-w-6xl px-5 sm:px-8">
+      <motion.div
+        aria-hidden
+        initial={{ x: 24 }}
+        animate={{ x: 0 }}
+        transition={{ duration: 0.8, ease: easing, delay: 0.2 }}
+        className="pointer-events-none absolute bottom-[-3rem] right-[-7rem] z-0 h-[46svh] w-[88vw] max-w-[36rem] opacity-20 [mask-image:linear-gradient(90deg,transparent_0%,black_34%,black_100%)] sm:bottom-24 sm:right-[max(-8rem,calc((100vw-72rem)/2-9rem))] sm:h-[72svh] sm:w-[48vw] sm:max-w-[40rem] sm:opacity-70 lg:bottom-36 lg:h-[80svh]"
+      >
+        <Image
+          src="/profile/cahya-hero.png"
+          alt=""
+          width={1467}
+          height={2200}
+          priority
+          sizes="(max-width: 640px) 88vw, (max-width: 1024px) 48vw, 672px"
+          className="h-full w-full object-contain object-bottom grayscale-[0.76] sepia-[0.16] saturate-[0.72] contrast-[1.08] brightness-[1.02] drop-shadow-[0_28px_70px_rgba(0,0,0,0.18)] dark:brightness-[0.84] dark:contrast-[1.12] dark:drop-shadow-[0_32px_80px_rgba(0,0,0,0.38)]"
+        />
+      </motion.div>
+
+      <div className="relative z-10 mx-auto w-full max-w-6xl px-5 sm:px-8">
         <motion.div
           initial={{ opacity: 0, y: 6 }}
           animate={{ opacity: 1, y: 0 }}
