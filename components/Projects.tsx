@@ -76,7 +76,7 @@ export function Projects() {
           label="Selected Work"
           title={
             <>
-              Five projects, picked for the way
+              Selected projects, picked for the way
               <br />
               <span className="italic text-fg-muted">
                 they bend across disciplines.

@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" role="img" aria-label="Kakilima street vendor tracking app cover artwork">
+  <defs>
+    <linearGradient id="kk-bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#EAF6EC"/>
+      <stop offset="55%" stop-color="#B9D6C0"/>
+      <stop offset="100%" stop-color="#284734"/>
+    </linearGradient>
+    <pattern id="kk-grid" width="80" height="80" patternUnits="userSpaceOnUse">
+      <path d="M80 0 L0 0 0 80" fill="none" stroke="rgba(40,71,52,0.14)" stroke-width="2"/>
+    </pattern>
+  </defs>
+  <rect width="1600" height="1000" fill="url(#kk-bg)"/>
+  <rect width="1600" height="1000" fill="url(#kk-grid)"/>
+  <g fill="none" stroke="#284734" stroke-linecap="round" stroke-linejoin="round">
+    <path
+      d="M950 220 C 1086 258 1118 344 1244 360 C 1376 376 1456 482 1480 620"
+      stroke-width="18"
+      opacity="0.16"
+    />
+    <path
+      d="M950 220 C 1086 258 1118 344 1244 360 C 1376 376 1456 482 1480 620"
+      stroke-width="6"
+      opacity="0.82"
+    />
+    <path
+      d="M1100 600 C 1190 570 1312 576 1422 612"
+      stroke-width="4"
+      opacity="0.28"
+      stroke-dasharray="12 18"
+    />
+  </g>
+  <g>
+    <circle cx="950" cy="220" r="20" fill="#E7613D"/>
+    <circle cx="1244" cy="360" r="20" fill="#E7613D"/>
+    <circle cx="1480" cy="620" r="20" fill="#E7613D"/>
+  </g>
+  <g transform="translate(980 492)">
+    <rect x="0" y="0" width="230" height="180" rx="24" fill="#F9FFF7" opacity="0.93"/>
+    <rect x="34" y="48" width="162" height="42" rx="20" fill="#E7613D" opacity="0.86"/>
+    <rect x="50" y="100" width="132" height="18" rx="9" fill="#284734" opacity="0.2"/>
+    <circle cx="60" cy="144" r="18" fill="#284734"/>
+    <circle cx="170" cy="144" r="18" fill="#284734"/>
+  </g>
+  <text x="120" y="235" font-family="Georgia, 'Instrument Serif', serif" font-size="142" font-weight="400" letter-spacing="-4" fill="#193322">Kakilima</text>
+  <text x="124" y="292" font-family="ui-sans-serif, system-ui" font-size="22" letter-spacing="5" fill="rgba(25,51,34,0.62)">STREET VENDORS · REAL-TIME TRACKING</text>
+</svg>

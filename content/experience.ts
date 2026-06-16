@@ -35,18 +35,38 @@ export const experiences: Experience[] = [
     start: "Jan 2026",
     end: "Present",
     summary:
-      "Build responsive web apps for educational platforms with Vue 3 / Nuxt 3 and REST APIs.",
-    tags: ["Vue 3", "Nuxt 3", "REST"],
+      "Contribute to DIGITS and internal education platforms, building responsive interfaces that support school learning and operational workflows.",
+    tags: ["Vue 3", "Nuxt 3", "REST", "Education"],
+  },
+  {
+    id: "community-service-goat",
+    role: "Communicator / Participant",
+    org: "Telkom University x Universiti Teknologi PETRONAS",
+    start: "Dec 2025",
+    end: "Dec 2025",
+    summary:
+      "Translated farmer needs into requirements and presented The Goat, a standalone automated food dispenser concept for small-scale goat farmers in Margamukti Village.",
+    tags: ["Community service", "Communication", "IoT"],
   },
   {
     id: "dicoding-community",
     role: "Community Builder",
     org: "Dicoding Indonesia",
     start: "Nov 2025",
-    end: "Present",
+    end: "May 2026",
     summary:
-      "Built and lead the campus-level Dicoding Community Network at Telkom University.",
-    tags: ["Community", "Programs"],
+      "Built and led the campus-level Dicoding Community Network as a peer-learning space for students exploring technology and software development.",
+    tags: ["Community", "Programs", "Peer learning"],
+  },
+  {
+    id: "ise-research-assistant",
+    role: "Research Assistant",
+    org: "Information Systems Engineering Laboratory",
+    start: "Jun 2025",
+    end: "Dec 2025",
+    summary:
+      "Researched AI-assisted development workflows using c0.dev, ChatGPT, and DeepSeek, then translated technical experiments into clearer learning material for non-experts.",
+    tags: ["AI tools", "Research", "Learning material"],
   },
   {
     id: "prodigi-pic",
@@ -65,8 +85,8 @@ export const experiences: Experience[] = [
     start: "Feb 2025",
     end: "May 2025",
     summary:
-      "Architected scalable backend services and microservices for an internal platform.",
-    tags: ["REST API", "Microservices"],
+      "Designed REST APIs and database structures to connect application systems with AI-based service workflows and stable server-side integration.",
+    tags: ["REST API", "Database", "AI service"],
   },
   {
     id: "motiva-founder",

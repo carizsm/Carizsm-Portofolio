@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" role="img" aria-label="Iterra travel planning app cover artwork">
+  <defs>
+    <linearGradient id="it-bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#F8F3EA"/>
+      <stop offset="58%" stop-color="#D6C0A2"/>
+      <stop offset="100%" stop-color="#4A5A46"/>
+    </linearGradient>
+    <radialGradient id="it-sun" cx="0.72" cy="0.22" r="0.42">
+      <stop offset="0%" stop-color="rgba(255,132,84,0.52)"/>
+      <stop offset="100%" stop-color="rgba(255,132,84,0)"/>
+    </radialGradient>
+  </defs>
+  <rect width="1600" height="1000" fill="url(#it-bg)"/>
+  <rect width="1600" height="1000" fill="url(#it-sun)"/>
+  <path d="M0 730 C 220 620 360 650 520 560 C 730 442 880 500 1020 420 C 1190 324 1390 290 1600 380 L1600 1000 L0 1000 Z" fill="#26362D" opacity="0.72"/>
+  <path d="M0 820 C 220 720 400 760 560 660 C 780 522 920 620 1120 500 C 1300 392 1450 460 1600 420 L1600 1000 L0 1000 Z" fill="#0E1D18" opacity="0.7"/>
+  <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <path
+      d="M1008 250 C 1098 302 1168 344 1228 408 C 1298 482 1336 574 1432 682"
+      stroke="#2E3A31"
+      stroke-width="5"
+      opacity="0.28"
+      stroke-dasharray="10 18"
+    />
+    <path
+      d="M1040 278 C 1130 318 1190 356 1246 420"
+      stroke="#2E3A31"
+      stroke-width="3"
+      opacity="0.36"
+    />
+  </g>
+  <g fill="#E7613D">
+    <circle cx="1008" cy="250" r="14"/>
+    <circle cx="1246" cy="420" r="10" opacity="0.22"/>
+    <circle cx="1432" cy="682" r="14"/>
+  </g>
+  <g transform="translate(1050 410)">
+    <rect width="310" height="210" rx="28" fill="#F8F3EA" opacity="0.92"/>
+    <rect x="30" y="34" width="160" height="18" rx="9" fill="#2E3A31" opacity="0.28"/>
+    <rect x="30" y="74" width="250" height="15" rx="7.5" fill="#2E3A31" opacity="0.18"/>
+    <rect x="30" y="108" width="110" height="58" rx="16" fill="#E7613D" opacity="0.78"/>
+    <rect x="154" y="108" width="126" height="58" rx="16" fill="#2E3A31" opacity="0.2"/>
+  </g>
+  <text x="120" y="235" font-family="Georgia, 'Instrument Serif', serif" font-size="150" font-weight="400" letter-spacing="-5" fill="#18231D">Iterra</text>
+  <text x="124" y="290" font-family="ui-sans-serif, system-ui" font-size="22" letter-spacing="5" fill="rgba(24,35,29,0.62)">TRIP PLANNING · BUDGET · COLLABORATION</text>
+</svg>

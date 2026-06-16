@@ -14,6 +14,6 @@ export interface Stat {
 export const stats: Stat[] = [
   { value: "3.83", label: "GPA / 4.00", caption: "Telkom University" },
   { value: "BI", label: "Scholar", caption: "Cohort 2025" },
-  { value: "5+", label: "Products shipped", caption: "Web · Mobile · IoT" },
+  { value: "8", label: "Selected works", caption: "Web · Mobile · IoT" },
   { value: "2nd", label: "ADIKARA 2024", caption: "Entrepreneur track" },
 ];

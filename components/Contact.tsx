@@ -10,7 +10,7 @@ export function Contact() {
         <div className="mt-6 flex flex-wrap gap-3 text-sm">
           <a className="rounded-full border border-border px-4 py-2 hover:border-accent hover:text-accent" href={`mailto:${personal.email}`}>Email</a>
           <a className="rounded-full border border-border px-4 py-2 hover:border-accent hover:text-accent" href={personal.links.linkedin} target="_blank" rel="noreferrer">LinkedIn</a>
-          <span className="rounded-full border border-border px-4 py-2 text-fg-subtle">GitHub coming soon</span>
+          <a className="rounded-full border border-border px-4 py-2 hover:border-accent hover:text-accent" href={personal.links.github} target="_blank" rel="noreferrer">GitHub</a>
         </div>
       </footer>
     </SectionShell>

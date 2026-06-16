@@ -25,6 +25,7 @@ export const skillGroups: SkillGroup[] = [
     label: "Frontend",
     items: [
       { name: "Vue 3 / Nuxt 3", level: 3 },
+      { name: "Next.js / React", level: 2 },
       { name: "TypeScript", level: 2 },
       { name: "JavaScript", level: 3 },
       { name: "HTML / CSS", level: 3 },
@@ -35,6 +36,8 @@ export const skillGroups: SkillGroup[] = [
   {
     label: "Backend",
     items: [
+      { name: "Supabase", level: 2 },
+      { name: "Firebase / Firestore", level: 2 },
       { name: "Laravel", level: 2 },
       { name: "REST API design", level: 2 },
       { name: "SQL / Modeling", level: 2 },
@@ -62,12 +65,14 @@ export const skillGroups: SkillGroup[] = [
     ],
   },
   {
-    label: "Leadership",
+    label: "Product & Collaboration",
     items: [
+      { name: "Product planning", level: 2 },
+      { name: "Problem framing", level: 3 },
+      { name: "Stakeholder communication", level: 2 },
       { name: "Product leadership", level: 2 },
-      { name: "Public speaking", level: 2 },
       { name: "Mentoring", level: 3 },
-      { name: "Team coordination", level: 3 },
+      { name: "Community building", level: 3 },
     ],
   },
 ];

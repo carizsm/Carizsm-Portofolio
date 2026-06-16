@@ -15,10 +15,10 @@ export const personal = {
   email: "cahyarizqi3@gmail.com",
   links: {
     linkedin: "https://www.linkedin.com/in/cahya-rizqi",
-    github: "",
+    github: "https://github.com/carizsm",
   },
   about:
-    "I build at the intersection of design, engineering, and entrepreneurship. From leading an AI-powered student startup to shipping production web apps and mentoring junior developers, I'm drawn to problems where technical depth meets human craft. Currently a final-year Information Technology student at Telkom University and a Bank Indonesia Scholar.",
+    "I build digital products by listening to real problems first. My work moves between product building, community learning, and social impact: from collaborative travel planning and AI-assisted research to education platforms, mentoring, and village-based community service.",
   url: "https://cahya.dev",
 } as const;
 

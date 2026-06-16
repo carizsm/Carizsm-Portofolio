@@ -100,6 +100,123 @@ export interface Project {
 
 export const projects: Project[] = [
   {
+    id: "iterra",
+    title: "Iterra",
+    role: "Product Engineer · Self-initiated MVP",
+    period: "2026",
+    description:
+      "A collaborative travel planning web app that brings itinerary, budget, split-cost calculation, member collaboration, and trip review into one mobile-first workspace.",
+    tech: [
+      "Next.js",
+      "TypeScript",
+      "Tailwind CSS",
+      "Supabase",
+      "Framer Motion",
+      "Recharts",
+    ],
+    outcome:
+      "Built as a mobile-first MVP to reduce friction in group travel planning.",
+    type: "Self-initiated",
+    featured: true,
+    links: {
+      repo: "https://github.com/carizsm/Iterra-Project.git",
+    },
+    image: {
+      src: "/projects/iterra.svg",
+      alt: "Iterra collaborative travel planning app cover artwork",
+    },
+    detail: {
+      eyebrow: "Self-initiated MVP / Travel planning",
+      headline:
+        "Planning a group trip should feel exciting, not chaotic.",
+      summary:
+        "Iterra was built as a collaborative workspace for itinerary planning, budgeting, split-cost calculation, member decisions, and trip review. The product direction came from a simple pain point: group travel often breaks down because plans, money, and decisions live in too many separate chats and spreadsheets.",
+      featureEyebrow: "Product scope",
+      featureHeadline:
+        "One calm workspace for planning, money, and group decisions.",
+      metrics: [
+        {
+          value: "MVP",
+          label:
+            "built as a self-initiated product prototype for end-to-end planning flows",
+        },
+        {
+          value: "6 tools",
+          label:
+            "itinerary, budget, expenses, split costs, members, and trip review in one flow",
+        },
+        {
+          value: "Mobile",
+          label:
+            "interface direction optimized for travel planning on smaller screens",
+        },
+      ],
+      sections: [
+        {
+          title: "Problem",
+          body:
+            "Group trips often become messy because the plan is split across chat threads, notes, payment screenshots, and individual assumptions. Iterra frames travel planning as a shared workspace rather than a private checklist.",
+        },
+        {
+          title: "Solution",
+          body:
+            "The MVP combines itinerary planning, budget visibility, expense tracking, split-cost calculation, and collaborative member decisions. The goal is to make the next action clear for every person in the trip.",
+        },
+        {
+          title: "My Role",
+          body:
+            "I owned the product direction and implementation, translating the planning problem into a mobile-first interface, data model, demo mode, and working web app built with a modern Next.js stack.",
+        },
+        {
+          title: "Design Direction",
+          body:
+            "The visual system uses a calm warm-earthy, premium minimalist tone so trip planning feels organized and inviting instead of administrative.",
+        },
+      ],
+      features: [
+        {
+          title: "Shared Itinerary",
+          body:
+            "Keeps trip activities and planning context in one place so members can understand the schedule quickly.",
+        },
+        {
+          title: "Budget & Split Costs",
+          body:
+            "Connects expenses and cost sharing so the financial side of a trip is visible instead of scattered.",
+        },
+        {
+          title: "Member Collaboration",
+          body:
+            "Frames decisions around the group, helping plans move forward without relying on one person to coordinate everything manually.",
+        },
+      ],
+      process: [
+        {
+          label: "Frame",
+          body:
+            "Defined the core friction in group travel planning and grouped the product around plan, money, and people.",
+        },
+        {
+          label: "Build",
+          body:
+            "Implemented the MVP with Next.js, TypeScript, Tailwind CSS, Supabase, Framer Motion, and Recharts.",
+        },
+        {
+          label: "Polish",
+          body:
+            "Added demo-mode support and refined the interface to make the product easier to present in a portfolio context.",
+        },
+      ],
+      media: [
+        {
+          src: "/projects/iterra.svg",
+          alt: "Iterra collaborative travel planning app cover artwork",
+          caption: "Collaborative travel planning MVP",
+        },
+      ],
+    },
+  },
+  {
     id: "motiva",
     title: "MOTIVA",
     role: "Founder & CEO · Team of 4",
@@ -459,6 +576,214 @@ export const projects: Project[] = [
           src: "/projects/skin-cancer.svg",
           alt: "API architecture diagram for the skin cancer detection service",
           caption: "Backend and AI integration overview",
+        },
+      ],
+    },
+  },
+  {
+    id: "kakilima",
+    title: "Kakilima",
+    role: "Product Concept Lead · Self-initiated",
+    period: "2026",
+    description:
+      "A real-time tracking platform concept for mobile street vendors, designed to make nearby sellers easier to discover while giving vendors lightweight visibility tools.",
+    tech: ["Product strategy", "Real-time maps", "Vendor discovery", "Mobile UX"],
+    type: "Self-initiated",
+    image: {
+      src: "/projects/kakilima.svg",
+      alt: "Kakilima street vendor tracking app cover artwork",
+    },
+    detail: {
+      eyebrow: "Self-initiated concept / Local economy",
+      headline:
+        "Street vendors are everywhere in Indonesia, but often invisible when buyers need them.",
+      summary:
+        "Kakilima explores real-time tracking and simple seller tools for mobile street vendors who are not well served by mainstream food delivery platforms. The concept focuses on accessibility, vendor visibility, local route insights, and community-level discovery.",
+      featureEyebrow: "Product opportunity",
+      featureHeadline:
+        "Location-aware discovery for sellers who move through the city.",
+      metrics: [
+        {
+          value: "Local",
+          label:
+            "focused on mobile street vendors and neighborhood-level discovery",
+        },
+        {
+          value: "Real-time",
+          label:
+            "core interaction built around live vendor location and route visibility",
+        },
+        {
+          value: "Concept",
+          label:
+            "framed as an early product idea for accessibility and local economic activity",
+        },
+      ],
+      sections: [
+        {
+          title: "Problem",
+          body:
+            "Mobile street vendors are part of everyday Indonesian life, but customers often miss them because their location changes and discovery still depends on luck, memory, or word of mouth.",
+        },
+        {
+          title: "Solution",
+          body:
+            "Kakilima proposes a map-based product where nearby customers can find vendors in real time, while sellers get a simple way to show availability, route patterns, and community events.",
+        },
+        {
+          title: "My Role",
+          body:
+            "I framed the product opportunity, target users, feature direction, and value proposition around a local problem that blends mobility, commerce, and accessibility.",
+        },
+        {
+          title: "Why It Matters",
+          body:
+            "The project is less about copying delivery apps and more about designing for sellers whose business model depends on movement, proximity, and informal community trust.",
+        },
+      ],
+      features: [
+        {
+          title: "Live Vendor Location",
+          body:
+            "Helps customers discover mobile sellers nearby instead of waiting for chance encounters.",
+        },
+        {
+          title: "Seller Visibility Tools",
+          body:
+            "Gives vendors a lightweight presence without forcing them into a heavy operational platform.",
+        },
+        {
+          title: "Community Route Insights",
+          body:
+            "Uses local movement patterns and events to make vendor discovery more useful for neighborhoods.",
+        },
+      ],
+      process: [
+        {
+          label: "Observe",
+          body:
+            "Started from the mismatch between how often street vendors move and how hard they are to find at the right moment.",
+        },
+        {
+          label: "Frame",
+          body:
+            "Defined customers, vendors, route visibility, and subscription-based discovery as the first product pillars.",
+        },
+        {
+          label: "Pitch",
+          body:
+            "Turned the idea into a portfolio-ready product concept with a clear problem, audience, and social-economic angle.",
+        },
+      ],
+      media: [
+        {
+          src: "/projects/kakilima.svg",
+          alt: "Kakilima street vendor tracking app cover artwork",
+          caption: "Real-time street vendor discovery concept",
+        },
+      ],
+    },
+  },
+  {
+    id: "the-goat",
+    title: "The Goat",
+    role: "Communicator & Product Translator · Community Service",
+    period: "Dec 2025",
+    description:
+      "A standalone automated food dispenser concept for small-scale goat farmers in Margamukti Village, developed through a Telkom University and Universiti Teknologi PETRONAS community service program.",
+    tech: ["IoT concept", "Needs translation", "Field communication", "Social impact"],
+    type: "Real-world deployment",
+    image: {
+      src: "/projects/the-goat.svg",
+      alt: "The Goat automated feeder project cover artwork",
+    },
+    detail: {
+      eyebrow: "Community service / Margamukti Village",
+      headline:
+        "Good technology starts by listening before building.",
+      summary:
+        "The Goat came from an international community service program between Telkom University and Universiti Teknologi PETRONAS in Margamukti Village. My role was to help translate farmer needs into clearer project requirements and communicate the proposed automated feeding solution across English and Indonesian discussions.",
+      featureEyebrow: "Community role",
+      featureHeadline:
+        "Turning field needs into a simple technology direction.",
+      metrics: [
+        {
+          value: "Village",
+          label:
+            "field context focused on small-scale goat farming in Margamukti",
+        },
+        {
+          value: "Bridge",
+          label:
+            "communication role across local needs, team discussion, and presentation",
+        },
+        {
+          value: "1 day",
+          label:
+            "community service engagement documented in the Academy portfolio",
+        },
+      ],
+      sections: [
+        {
+          title: "Problem",
+          body:
+            "Small-scale farmers can face repetitive feeding routines and resource constraints that are easy to overlook from a purely technical perspective. The project needed to begin with local context rather than a ready-made gadget idea.",
+        },
+        {
+          title: "Solution Direction",
+          body:
+            "The proposed system was a standalone automated food dispenser for goats, framed as a simple intervention that could support feeding routines without demanding complex digital infrastructure.",
+        },
+        {
+          title: "My Role",
+          body:
+            "I served as the communication bridge: listening to local farmer needs, translating them into project requirements, facilitating English-Indonesian discussions, and presenting the solution story.",
+        },
+        {
+          title: "Learning",
+          body:
+            "The strongest takeaway was that useful technology depends on trust, language, and context as much as hardware. For social-impact work, the first design skill is listening carefully.",
+        },
+      ],
+      features: [
+        {
+          title: "Automated Feeding Concept",
+          body:
+            "Explores a simple standalone device that can support repeated feeding routines for small-scale farmers.",
+        },
+        {
+          title: "Needs Translation",
+          body:
+            "Turns field conversations into clearer requirements so the technical proposal stays grounded in real conditions.",
+        },
+        {
+          title: "Cross-Cultural Communication",
+          body:
+            "Connects local Indonesian context with an international student team through facilitation and presentation.",
+        },
+      ],
+      process: [
+        {
+          label: "Listen",
+          body:
+            "Gathered local context from farmer conversations and observed what kind of support would be practical.",
+        },
+        {
+          label: "Translate",
+          body:
+            "Converted needs into product requirements and helped align the team around a simple automated feeding direction.",
+        },
+        {
+          label: "Present",
+          body:
+            "Communicated the solution in a way that connected technical intent with community relevance.",
+        },
+      ],
+      media: [
+        {
+          src: "/projects/the-goat.svg",
+          alt: "The Goat automated feeder project cover artwork",
+          caption: "Community service product concept",
         },
       ],
     },
