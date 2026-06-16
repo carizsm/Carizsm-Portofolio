@@ -373,6 +373,95 @@ export const projects: Project[] = [
       src: "/projects/skin-cancer.svg",
       alt: "API architecture diagram for the skin cancer detection service",
     },
+    detail: {
+      eyebrow: "Humic Engineering / Class-lab project",
+      headline:
+        "A backend foundation for AI-assisted skin lesion screening, built around reliable API and data flow.",
+      summary:
+        "This project connected a skin lesion classification model with a backend service that could receive prediction requests, manage structured records, and return model results through a clearer REST API contract. My focus was the server-side architecture, database structure, and model integration path.",
+      featureEyebrow: "Backend scope",
+      featureHeadline:
+        "Model integration, records, and API behavior kept separated.",
+      metrics: [
+        {
+          value: "REST",
+          label:
+            "API style used to expose prediction and supporting service flows",
+        },
+        {
+          value: "3 layers",
+          label:
+            "server routes, database schema, and AI model integration organized as separate concerns",
+        },
+        {
+          value: "Feb-May",
+          label: "2025 project window with the Humic Engineering team",
+        },
+      ],
+      sections: [
+        {
+          title: "Problem",
+          body:
+            "A clinical-adjacent AI feature needs more than a model output. The service layer has to accept inputs predictably, preserve useful records, and make the system understandable enough for the rest of the product team to build around it.",
+        },
+        {
+          title: "Backend Direction",
+          body:
+            "I structured the backend around clear REST endpoints, database entities, and a model integration boundary. That kept API behavior separate from storage concerns and made the classifier easier to connect, test, and replace if the model changed.",
+        },
+        {
+          title: "My Role",
+          body:
+            "As backend developer, I worked on the API design, database schema, and server-side integration with the AI model. The goal was to make the technical plumbing reliable enough for teammates to consume from the interface layer.",
+        },
+        {
+          title: "Reliability Considerations",
+          body:
+            "The implementation prioritized predictable request and response shapes, traceable records, and a maintainable architecture because model-backed health products become risky when backend behavior is ambiguous.",
+        },
+      ],
+      features: [
+        {
+          title: "Prediction API",
+          body:
+            "Receives classification requests and returns model-backed results through a backend contract designed for frontend consumption.",
+        },
+        {
+          title: "Structured Data Model",
+          body:
+            "Defines storage around the entities needed to keep prediction records and supporting data organized.",
+        },
+        {
+          title: "Model Integration Boundary",
+          body:
+            "Keeps AI inference separate from route and database logic, so the backend stays easier to debug and evolve.",
+        },
+      ],
+      process: [
+        {
+          label: "Architecture",
+          body:
+            "Mapped the service into API routes, database responsibilities, and model interaction points before implementation.",
+        },
+        {
+          label: "Implementation",
+          body:
+            "Built the backend flow that receives requests, calls the model integration layer, and prepares response data for the client.",
+        },
+        {
+          label: "Team Handoff",
+          body:
+            "Kept API behavior and data structure explicit so design and frontend work could continue without relying on backend assumptions.",
+        },
+      ],
+      media: [
+        {
+          src: "/projects/skin-cancer.svg",
+          alt: "API architecture diagram for the skin cancer detection service",
+          caption: "Backend and AI integration overview",
+        },
+      ],
+    },
   },
   {
     id: "edu-parent",
@@ -383,6 +472,95 @@ export const projects: Project[] = [
       "Designed the UI and UX for a parenting companion app that helps parents access knowledge and track child activities. The product target is sleep-deprived parents — every flow is one-handed-friendly and forgiving.",
     tech: ["Figma", "User research", "Prototyping"],
     type: "Class project",
+    detail: {
+      eyebrow: "Class project / Product design",
+      headline:
+        "A parent-facing companion app concept designed for quick, forgiving use during busy family routines.",
+      summary:
+        "Edu Parent focuses on helping parents access parenting knowledge and track child activities without making the app feel like another chore. The design direction emphasized calm information hierarchy, one-handed mobile flows, and simple tracking interactions.",
+      featureEyebrow: "Design scope",
+      featureHeadline:
+        "Helpful guidance and child activity tracking in a low-friction mobile flow.",
+      metrics: [
+        {
+          value: "Mobile",
+          label:
+            "primary design context optimized for parent use in short sessions",
+        },
+        {
+          value: "Figma",
+          label:
+            "main tool for interface exploration, prototyping, and handoff",
+        },
+        {
+          value: "Nov-Jan",
+          label: "2024-2025 design window for the class project",
+        },
+      ],
+      sections: [
+        {
+          title: "Problem",
+          body:
+            "Parents often need quick answers and a lightweight way to monitor child routines, but many parenting products overload the screen with articles, forms, or rigid tracking flows.",
+        },
+        {
+          title: "Design Direction",
+          body:
+            "The interface was shaped around fast scanning, large touch targets, clear labels, and gentle visual hierarchy. The app should work when the user only has a few seconds of attention.",
+        },
+        {
+          title: "My Role",
+          body:
+            "I worked as UI/UX designer on the team, translating the product idea into mobile screens, user flows, visual hierarchy, and prototype interactions that could explain the experience clearly.",
+        },
+        {
+          title: "Experience Principle",
+          body:
+            "The product tone avoids guilt-heavy tracking. It frames activity records and parenting knowledge as support, not judgement, so parents can return without feeling punished by the interface.",
+        },
+      ],
+      features: [
+        {
+          title: "Parenting Knowledge Hub",
+          body:
+            "Organizes practical information so parents can find guidance without digging through a dense article feed.",
+        },
+        {
+          title: "Child Activity Tracking",
+          body:
+            "Supports routine logging with simple inputs that fit into short, repeated parent workflows.",
+        },
+        {
+          title: "Forgiving Mobile Flow",
+          body:
+            "Uses clear navigation, readable spacing, and direct actions so the app remains usable during interrupted moments.",
+        },
+      ],
+      process: [
+        {
+          label: "Discovery",
+          body:
+            "Clarified the parent use case, key content needs, and moments where tracking should feel fast instead of administrative.",
+        },
+        {
+          label: "Wireframe",
+          body:
+            "Mapped the main screens and navigation flow before refining visual details and interaction states in Figma.",
+        },
+        {
+          label: "Prototype",
+          body:
+            "Built a clickable prototype to communicate onboarding, knowledge access, and activity tracking behavior to the team.",
+        },
+      ],
+      media: [
+        {
+          src: "/projects/edu-parent.svg",
+          alt: "Edu Parent app onboarding and tracking screens",
+          caption: "Mobile app flow overview",
+        },
+      ],
+    },
     image: {
       src: "/projects/edu-parent.svg",
       alt: "Edu Parent app — onboarding and tracking screens",
@@ -398,6 +576,94 @@ export const projects: Project[] = [
     tech: ["IoT hardware", "Embedded", "Network integration"],
     outcome: "Live deployment in a public high school",
     type: "Real-world deployment",
+    detail: {
+      eyebrow: "SMA Negeri 1 Margahayu / IoT deployment",
+      headline:
+        "An IoT lamp control project built for a real school environment, focused on reducing wasted electricity.",
+      summary:
+        "Smart Lamp was a pragmatic hardware and connectivity project deployed at SMA Negeri 1 Margahayu. The work connected lamp control, embedded logic, and network communication so lighting could be managed more intentionally in classrooms and school spaces.",
+      featureEyebrow: "Deployment scope",
+      featureHeadline:
+        "Embedded control, connectivity, and real-building constraints.",
+      metrics: [
+        {
+          value: "School",
+          label: "real deployment context at SMA Negeri 1 Margahayu",
+        },
+        {
+          value: "IoT",
+          label:
+            "hardware, embedded logic, and network integration combined in one prototype",
+        },
+        {
+          value: "Sep-Jan",
+          label: "2024-2025 build and field testing period",
+        },
+      ],
+      sections: [
+        {
+          title: "Problem",
+          body:
+            "Lighting in shared school spaces can stay on longer than needed because control depends on manual habits. The project explored how a connected lamp system could reduce that waste with a small, practical intervention.",
+        },
+        {
+          title: "System Direction",
+          body:
+            "The prototype combined lamp hardware, embedded control, and network connectivity. The goal was not only to make the lamp switchable, but to make the system stable enough to test in an actual school setting.",
+        },
+        {
+          title: "My Role",
+          body:
+            "As IoT developer, I contributed to the hardware and embedded side of the system, including control behavior, connectivity considerations, and field testing with the team.",
+        },
+        {
+          title: "Deployment Learning",
+          body:
+            "A real building adds constraints that classroom prototypes do not expose: placement, connectivity, maintenance, and how easily people can understand and trust the system.",
+        },
+      ],
+      features: [
+        {
+          title: "Connected Lamp Control",
+          body:
+            "Uses IoT connectivity to support more intentional lamp operation instead of relying only on manual switching habits.",
+        },
+        {
+          title: "Embedded Control Logic",
+          body:
+            "Handles device behavior close to the hardware so the prototype can respond consistently during testing.",
+        },
+        {
+          title: "Field-Tested Prototype",
+          body:
+            "Designed and tested in the context of a public high school, where reliability and clarity matter more than polished lab demos.",
+        },
+      ],
+      process: [
+        {
+          label: "Build",
+          body:
+            "Assembled the hardware and embedded control flow needed for the connected lamp prototype.",
+        },
+        {
+          label: "Connect",
+          body:
+            "Integrated network communication so the lamp behavior could be managed as part of an IoT system.",
+        },
+        {
+          label: "Deploy",
+          body:
+            "Tested the prototype in the school environment and learned from the practical constraints of operating in a real space.",
+        },
+      ],
+      media: [
+        {
+          src: "/projects/smart-lamp.svg",
+          alt: "Smart Lamp prototype installed in a classroom",
+          caption: "School deployment concept",
+        },
+      ],
+    },
     image: {
       src: "/projects/smart-lamp.svg",
       alt: "Smart Lamp prototype installed in a classroom",

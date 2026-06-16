@@ -16,6 +16,7 @@ export function ProjectMediaCarousel({ media }: { media: ProjectMedia[] }) {
   if (media.length === 0) return null;
 
   const active = media[index];
+  const hasMultipleItems = media.length > 1;
   const prev = () =>
     setIndex((current) => (current - 1 + media.length) % media.length);
   const next = () => setIndex((current) => (current + 1) % media.length);
@@ -63,47 +64,51 @@ export function ProjectMediaCarousel({ media }: { media: ProjectMedia[] }) {
           <p className="rounded-full border border-border bg-bg/85 px-3 py-1.5 text-xs text-fg-muted backdrop-blur">
             {active.caption}
           </p>
-          <div className="flex gap-1.5 rounded-full border border-border bg-bg/85 p-1 backdrop-blur">
-            <button
-              type="button"
-              onClick={prev}
-              title="Previous image"
-              className="inline-flex h-8 w-8 items-center justify-center rounded-full text-fg-muted transition-colors hover:bg-bg-elevated hover:text-accent"
-            >
-              <ChevronLeft className="h-4 w-4" />
-              <span className="sr-only">Previous image</span>
-            </button>
-            <button
-              type="button"
-              onClick={next}
-              title="Next image"
-              className="inline-flex h-8 w-8 items-center justify-center rounded-full text-fg-muted transition-colors hover:bg-bg-elevated hover:text-accent"
-            >
-              <ChevronRight className="h-4 w-4" />
-              <span className="sr-only">Next image</span>
-            </button>
-          </div>
+          {hasMultipleItems && (
+            <div className="flex gap-1.5 rounded-full border border-border bg-bg/85 p-1 backdrop-blur">
+              <button
+                type="button"
+                onClick={prev}
+                title="Previous image"
+                className="inline-flex h-8 w-8 items-center justify-center rounded-full text-fg-muted transition-colors hover:bg-bg-elevated hover:text-accent"
+              >
+                <ChevronLeft className="h-4 w-4" />
+                <span className="sr-only">Previous image</span>
+              </button>
+              <button
+                type="button"
+                onClick={next}
+                title="Next image"
+                className="inline-flex h-8 w-8 items-center justify-center rounded-full text-fg-muted transition-colors hover:bg-bg-elevated hover:text-accent"
+              >
+                <ChevronRight className="h-4 w-4" />
+                <span className="sr-only">Next image</span>
+              </button>
+            </div>
+          )}
         </div>
       </div>
 
-      <div className="mt-3 flex justify-center gap-2">
-        {media.map((item, itemIndex) => (
-          <button
-            key={item.src}
-            type="button"
-            onClick={() => setIndex(itemIndex)}
-            title={item.caption}
-            className={cn(
-              "h-1.5 rounded-full transition-all",
-              itemIndex === index
-                ? "w-7 bg-accent"
-                : "w-1.5 bg-border-strong hover:bg-fg-subtle",
-            )}
-          >
-            <span className="sr-only">{item.caption}</span>
-          </button>
-        ))}
-      </div>
+      {hasMultipleItems && (
+        <div className="mt-3 flex justify-center gap-2">
+          {media.map((item, itemIndex) => (
+            <button
+              key={item.src}
+              type="button"
+              onClick={() => setIndex(itemIndex)}
+              title={item.caption}
+              className={cn(
+                "h-1.5 rounded-full transition-all",
+                itemIndex === index
+                  ? "w-7 bg-accent"
+                  : "w-1.5 bg-border-strong hover:bg-fg-subtle",
+              )}
+            >
+              <span className="sr-only">{item.caption}</span>
+            </button>
+          ))}
+        </div>
+      )}
     </div>
   );
 }

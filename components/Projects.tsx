@@ -111,7 +111,7 @@ export function Projects() {
       <div
         ref={railRef}
         onScroll={handleRailScroll}
-        className="fade-edge-r -mx-5 flex snap-x snap-mandatory gap-4 overflow-x-auto scroll-smooth px-5 pb-6 pt-2 [scrollbar-width:none] sm:-mx-8 sm:gap-5 sm:px-8 [&::-webkit-scrollbar]:hidden"
+        className="fade-edge-r -mx-5 flex snap-x snap-mandatory gap-4 overflow-x-auto scroll-smooth px-5 pb-6 pt-2 [scrollbar-width:none] sm:-mx-8 sm:gap-5 sm:px-8 md:pl-28 lg:pl-32 xl:gap-6 [&::-webkit-scrollbar]:hidden"
         aria-label="Selected work carousel"
       >
         {projects.map((project, index) => (
@@ -170,7 +170,7 @@ function ProjectSlide({
       viewport={{ once: true, margin: "0px 0px -8% 0px" }}
       transition={{ duration: 0.58, ease: easing, delay: Math.min(index * 0.05, 0.18) }}
       className={cn(
-        "group relative grid w-[72vw] max-w-[620px] shrink-0 snap-center overflow-hidden rounded-2xl border bg-bg text-fg transition-all duration-500 sm:w-[52vw] lg:w-[44vw] xl:w-[590px]",
+        "group relative grid w-[86vw] max-w-[760px] shrink-0 snap-center overflow-hidden rounded-2xl border bg-bg text-fg transition-all duration-500 sm:w-[74vw] md:w-[68vw] lg:w-[58vw] xl:w-[740px]",
         active
           ? "border-accent/45 shadow-[0_28px_90px_color-mix(in_oklch,var(--color-fg)_12%,transparent)]"
           : "border-border opacity-72 shadow-none hover:opacity-100",
@@ -179,7 +179,7 @@ function ProjectSlide({
     >
       <ProjectCover project={project} active={active} />
 
-      <div className="relative z-10 mt-auto border-t border-border bg-bg/90 px-4 py-4 backdrop-blur">
+      <div className="relative z-10 mt-auto border-t border-border bg-bg/90 px-5 py-5 backdrop-blur sm:px-6">
         <ProjectIndex index={index + 1} type={project.type} />
 
         <div className="mt-3 grid gap-3 lg:grid-cols-[0.7fr_1fr] lg:items-start">
@@ -225,7 +225,7 @@ function ProjectCover({
   if (!project.image) return null;
 
   return (
-    <div className="relative h-[210px] overflow-hidden bg-bg-elevated sm:h-[235px] lg:h-[255px]">
+    <div className="relative h-[225px] overflow-hidden bg-bg-elevated sm:h-[250px] lg:h-[275px]">
       <Image
         src={project.image.src}
         alt={project.image.alt}
