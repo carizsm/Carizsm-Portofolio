@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowLeft, ExternalLink } from "lucide-react";
+import { ArrowLeft, ArrowRight, ExternalLink } from "lucide-react";
 import { ProjectMediaCarousel } from "@/components/ProjectMediaCarousel";
 import { projects, type Project } from "@/content/projects";
 
@@ -35,8 +35,20 @@ export default async function ProjectDetailPage({
 
   if (!project) notFound();
 
+  const projectIndex = projects.findIndex((item) => item.id === id);
+  const previousProject = projectIndex > 0 ? projects[projectIndex - 1] : null;
+  const nextProject =
+    projectIndex < projects.length - 1 ? projects[projectIndex + 1] : null;
+
   if (project.detail) {
-    return <CaseStudyDetail project={project} detail={project.detail} />;
+    return (
+      <CaseStudyDetail
+        project={project}
+        detail={project.detail}
+        previousProject={previousProject}
+        nextProject={nextProject}
+      />
+    );
   }
 
   return (
@@ -68,9 +80,13 @@ export default async function ProjectDetailPage({
 function CaseStudyDetail({
   project,
   detail,
+  previousProject,
+  nextProject,
 }: {
   project: Project;
   detail: NonNullable<Project["detail"]>;
+  previousProject: Project | null;
+  nextProject: Project | null;
 }) {
   return (
     <section className="mx-auto w-full max-w-6xl px-5 py-24 sm:px-8 sm:py-28">
@@ -197,6 +213,52 @@ function CaseStudyDetail({
           ))}
         </div>
       </div>
+
+      <nav
+        aria-label="Continue exploring projects"
+        className="mt-16 border-t border-border pt-8"
+      >
+        <div className="grid gap-3 sm:grid-cols-[1fr_auto_1fr] sm:items-stretch">
+          {previousProject ? (
+            <Link
+              href={`/projects/${previousProject.id}`}
+              className="group flex min-h-24 flex-col justify-center rounded-2xl border border-border px-5 py-4 transition-colors hover:border-accent/45"
+            >
+              <span className="inline-flex items-center gap-2 text-xs uppercase tracking-[0.16em] text-fg-subtle">
+                <ArrowLeft className="h-3.5 w-3.5" /> Previous case study
+              </span>
+              <span className="serif mt-2 text-2xl text-fg transition-colors group-hover:text-accent">
+                {previousProject.title}
+              </span>
+            </Link>
+          ) : (
+            <div className="hidden sm:block" />
+          )}
+
+          <Link
+            href="/#contact"
+            className="inline-flex min-h-24 items-center justify-center rounded-2xl bg-accent px-6 py-4 text-center font-medium text-accent-fg transition-colors hover:bg-accent-hover"
+          >
+            Start a conversation
+          </Link>
+
+          {nextProject ? (
+            <Link
+              href={`/projects/${nextProject.id}`}
+              className="group flex min-h-24 flex-col items-end justify-center rounded-2xl border border-border px-5 py-4 text-right transition-colors hover:border-accent/45"
+            >
+              <span className="inline-flex items-center gap-2 text-xs uppercase tracking-[0.16em] text-fg-subtle">
+                Next case study <ArrowRight className="h-3.5 w-3.5" />
+              </span>
+              <span className="serif mt-2 text-2xl text-fg transition-colors group-hover:text-accent">
+                {nextProject.title}
+              </span>
+            </Link>
+          ) : (
+            <div className="hidden sm:block" />
+          )}
+        </div>
+      </nav>
     </section>
   );
 }

@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
 import { ArrowDown, ArrowUp } from "lucide-react";
 
 const sectionLinks = [
@@ -13,6 +14,14 @@ const sectionLinks = [
 const NAV_OFFSET = 88;
 
 export function ScrollAssist() {
+  const pathname = usePathname();
+
+  if (pathname !== "/") return null;
+
+  return <HomeScrollAssist />;
+}
+
+function HomeScrollAssist() {
   const [progress, setProgress] = useState(0);
   const [activeId, setActiveId] = useState<string>(sectionLinks[0].id);
 

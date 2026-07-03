@@ -6,7 +6,7 @@ import { ArrowUpRight, ChevronLeft, ChevronRight } from "lucide-react";
 import { motion, useReducedMotion } from "motion/react";
 import type { ReactNode } from "react";
 import { useCallback, useEffect, useRef, useState } from "react";
-import { projects, type Project } from "@/content/projects";
+import { projectArchive, projects, type Project } from "@/content/projects";
 import { SectionHead, SectionShell } from "./Section";
 import { cn } from "@/lib/utils";
 
@@ -85,11 +85,16 @@ export function Projects() {
           }
         />
 
-        <div className="mb-5 flex items-center justify-between gap-4">
-          <p className="max-w-md text-sm leading-relaxed text-fg-muted">
-            A sideways view across product, research, design, and systems work.
-          </p>
-          <div className="hidden items-center gap-2 sm:flex">
+        <div className="mb-5 flex items-end justify-between gap-4">
+          <div>
+            <p className="max-w-md text-sm leading-relaxed text-fg-muted">
+              A sideways view across product, research, design, and systems work.
+            </p>
+            <p className="mt-2 text-xs text-fg-subtle sm:hidden">
+              Swipe the cards or use the arrow controls.
+            </p>
+          </div>
+          <div className="flex shrink-0 items-center gap-2">
             <RailButton
               label="Previous project"
               disabled={activeIndex === 0}
@@ -124,21 +129,25 @@ export function Projects() {
         ))}
       </div>
 
-      <div className="mx-auto mt-2 flex max-w-6xl items-center justify-between gap-5">
-        <div className="flex gap-2">
+      <div className="mx-auto mt-1 flex max-w-6xl items-center justify-between gap-5">
+        <div className="hidden gap-1 sm:flex">
           {projects.map((project, index) => (
             <button
               key={project.id}
               type="button"
               onClick={() => scrollToProject(index)}
               title={`Show ${project.title}`}
-              className={cn(
-                "h-1.5 rounded-full transition-all duration-300",
-                index === activeIndex
-                  ? "w-8 bg-accent"
-                  : "w-2 bg-border-strong hover:bg-fg-subtle",
-              )}
+              className="group grid h-8 w-8 place-items-center rounded-full"
             >
+              <span
+                aria-hidden
+                className={cn(
+                  "h-1.5 rounded-full transition-all duration-300",
+                  index === activeIndex
+                    ? "w-8 bg-accent"
+                    : "w-2 bg-border-strong group-hover:bg-fg-subtle",
+                )}
+              />
               <span className="sr-only">Show {project.title}</span>
             </button>
           ))}
@@ -146,6 +155,47 @@ export function Projects() {
         <p className="font-mono text-xs text-fg-subtle">
           {String(activeIndex + 1).padStart(2, "0")} / {String(projects.length).padStart(2, "0")}
         </p>
+      </div>
+
+      <div className="mx-auto mt-16 max-w-6xl border-t border-border pt-8 sm:mt-20">
+        <div className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
+          <div>
+            <p className="text-xs uppercase tracking-[0.18em] text-fg-subtle">
+              Project archive
+            </p>
+            <h3 className="serif mt-2 text-3xl font-normal text-fg">More work.</h3>
+          </div>
+          <p className="max-w-md text-sm leading-relaxed text-fg-muted">
+            Earlier team projects across mobile products and campus systems.
+          </p>
+        </div>
+
+        <div className="mt-6 divide-y divide-border border-y border-border">
+          {projectArchive.map((item) => (
+            <article
+              key={item.id}
+              className="grid gap-4 py-6 md:grid-cols-[0.7fr_1.3fr] md:gap-10"
+            >
+              <div>
+                <div className="flex items-start justify-between gap-4">
+                  <h4 className="serif text-2xl text-fg">{item.title}</h4>
+                  <span className="font-mono text-xs text-fg-subtle">{item.period}</span>
+                </div>
+                <p className="mt-2 text-sm text-fg-subtle">{item.role}</p>
+              </div>
+              <div>
+                <p className="text-pretty text-sm leading-relaxed text-fg-muted">
+                  {item.description}
+                </p>
+                <div className="mt-3 flex flex-wrap gap-x-3 gap-y-1 text-xs text-fg-subtle">
+                  {item.tech.map((tech) => (
+                    <span key={tech}>{tech}</span>
+                  ))}
+                </div>
+              </div>
+            </article>
+          ))}
+        </div>
       </div>
     </SectionShell>
   );
@@ -288,13 +338,13 @@ function ProjectLinks({ project }: { project: Project }) {
   if (entries.length === 0 && !detailHref) return null;
 
   return (
-    <div className="mt-4 flex flex-wrap gap-3 text-sm">
+    <div className="mt-4 flex flex-wrap gap-2 text-sm">
       {detailHref && (
         <Link
           href={detailHref}
-          className="group/link inline-flex items-center gap-1 text-fg transition-colors hover:text-accent"
+          className="group/link inline-flex min-h-11 items-center gap-1 rounded-full border border-border px-3 text-fg transition-colors hover:border-accent/45 hover:text-accent"
         >
-          <span>Details</span>
+          <span>View case study</span>
           <ArrowUpRight className="h-3.5 w-3.5 transition-transform group-hover/link:-translate-y-0.5 group-hover/link:translate-x-0.5" />
         </Link>
       )}
@@ -304,7 +354,7 @@ function ProjectLinks({ project }: { project: Project }) {
           href={href as string}
           target="_blank"
           rel="noopener noreferrer"
-          className="group/link inline-flex items-center gap-1 text-fg transition-colors hover:text-accent"
+          className="group/link inline-flex min-h-11 items-center gap-1 rounded-full px-3 text-fg transition-colors hover:bg-bg-elevated hover:text-accent"
         >
           <span className="capitalize">{label}</span>
           <ArrowUpRight className="h-3.5 w-3.5 transition-transform group-hover/link:-translate-y-0.5 group-hover/link:translate-x-0.5" />
@@ -331,7 +381,7 @@ function RailButton({
       onClick={onClick}
       disabled={disabled}
       title={label}
-      className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-border bg-bg text-fg-muted transition-colors hover:border-accent/45 hover:text-accent disabled:cursor-not-allowed disabled:opacity-35"
+      className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-border bg-bg text-fg-muted transition-colors hover:border-accent/45 hover:text-accent disabled:cursor-not-allowed disabled:opacity-35"
     >
       {children}
       <span className="sr-only">{label}</span>

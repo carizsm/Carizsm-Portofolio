@@ -13,6 +13,7 @@ export type SkillLevel = 1 | 2 | 3;
 export interface Skill {
   name: string;
   level: SkillLevel;
+  detail?: string;
 }
 
 export interface SkillGroup {
@@ -73,6 +74,13 @@ export const skillGroups: SkillGroup[] = [
       { name: "Product leadership", level: 2 },
       { name: "Mentoring", level: 3 },
       { name: "Community building", level: 3 },
+    ],
+  },
+  {
+    label: "Languages",
+    items: [
+      { name: "Indonesian", level: 3, detail: "Native" },
+      { name: "English", level: 2, detail: "Professional working" },
     ],
   },
 ];

@@ -98,6 +98,15 @@ export interface Project {
   detail?: ProjectDetail;
 }
 
+export interface ProjectArchiveItem {
+  id: string;
+  title: string;
+  role: string;
+  period: string;
+  description: string;
+  tech: string[];
+}
+
 export const projects: Project[] = [
   {
     id: "iterra",
@@ -993,5 +1002,26 @@ export const projects: Project[] = [
       src: "/projects/smart-lamp.svg",
       alt: "Smart Lamp prototype installed in a classroom",
     },
+  },
+];
+
+export const projectArchive: ProjectArchiveItem[] = [
+  {
+    id: "nustaka",
+    title: "Nustaka",
+    role: "Product & Mobile Developer · Group project",
+    period: "2024",
+    description:
+      "An Indonesian cultural marketplace concept that pairs local products with cultural storytelling, exploring how mobile commerce can support preservation and discovery.",
+    tech: ["Mobile product", "Product planning", "Cultural storytelling"],
+  },
+  {
+    id: "hardware-embedded-lab-website",
+    title: "Hardware Embedded System Lab Website",
+    role: "Backend Developer · Campus collaboration",
+    period: "Sep 2024 - Jan 2025",
+    description:
+      "Developed server-side components and database structures for an official laboratory website, supporting reliable data flow and frontend integration.",
+    tech: ["Backend development", "Database design", "API integration"],
   },
 ];

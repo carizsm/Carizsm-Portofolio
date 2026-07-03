@@ -69,6 +69,16 @@ export const experiences: Experience[] = [
     tags: ["AI tools", "Research", "Learning material"],
   },
   {
+    id: "open-library-brand-ambassador",
+    role: "Brand Ambassador",
+    org: "Open Library Telkom University",
+    start: "May 2025",
+    end: "Present",
+    summary:
+      "Promote library services and digital literacy through educational content, campus communication, and user feedback collection that helps make learning resources easier to access.",
+    tags: ["Digital literacy", "Content", "User feedback"],
+  },
+  {
     id: "prodigi-pic",
     role: "PIC of Entrepreneur",
     org: "PRODIGI Digital Talent Centre Lab",

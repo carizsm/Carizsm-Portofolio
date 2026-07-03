@@ -35,7 +35,7 @@ export function Hero() {
   return (
     <section
       aria-labelledby="hero-name"
-      className="relative isolate flex min-h-[100svh] flex-col justify-end overflow-hidden pb-16 pt-28 sm:pb-24 sm:pt-32"
+      className="relative isolate flex min-h-[100svh] flex-col justify-end overflow-hidden pb-16 pt-28 sm:pb-14 sm:pt-24"
     >
       <div aria-hidden className="pointer-events-none absolute inset-0 -z-10">
         <div
@@ -55,7 +55,7 @@ export function Hero() {
         initial={{ x: 24 }}
         animate={{ x: 0 }}
         transition={{ duration: 0.8, ease: easing, delay: 0.2 }}
-        className="pointer-events-none absolute bottom-[-3rem] right-[-7rem] z-0 h-[46svh] w-[88vw] max-w-[36rem] opacity-20 [mask-image:linear-gradient(90deg,transparent_0%,black_34%,black_100%)] sm:bottom-24 sm:right-[max(-8rem,calc((100vw-72rem)/2-9rem))] sm:h-[72svh] sm:w-[48vw] sm:max-w-[40rem] sm:opacity-70 lg:bottom-36 lg:h-[80svh]"
+        className="pointer-events-none absolute bottom-[-3rem] right-[-9rem] z-0 h-[46svh] w-[88vw] max-w-[36rem] opacity-[0.12] [mask-image:linear-gradient(90deg,transparent_0%,black_48%,black_100%)] sm:bottom-24 sm:right-[max(-8rem,calc((100vw-72rem)/2-9rem))] sm:h-[72svh] sm:w-[48vw] sm:max-w-[40rem] sm:opacity-70 sm:[mask-image:linear-gradient(90deg,transparent_0%,black_34%,black_100%)] lg:bottom-36 lg:h-[80svh]"
       >
         <Image
           src="/profile/cahya-hero.png"
@@ -73,7 +73,7 @@ export function Hero() {
           initial={{ opacity: 0, y: 6 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, ease: easing }}
-          className="mb-8 inline-flex items-center gap-2 text-xs uppercase tracking-[0.18em] text-fg-muted sm:mb-10"
+          className="mb-8 inline-flex items-center gap-2 text-xs uppercase tracking-[0.18em] text-fg-muted sm:mb-7"
         >
           <span className="relative grid h-2 w-2 place-items-center">
             <span className="absolute h-2 w-2 rounded-full bg-accent" />
@@ -94,14 +94,14 @@ export function Hero() {
 
         <h1
           id="hero-name"
-          className="serif text-balance text-[clamp(3rem,9.5vw,8rem)] font-normal leading-[0.95] tracking-tighter text-fg"
+          className="serif text-balance text-[clamp(3rem,9.5vw,7.25rem)] font-normal leading-[0.95] tracking-tighter text-fg"
         >
           <SplitReveal text={firstLine} />
           <span className="block" />
           <SplitReveal text={secondLine} delay={0.18} italic />
         </h1>
 
-        <div className="mt-10 grid gap-12 sm:mt-12 sm:grid-cols-12 sm:gap-8">
+        <div className="mt-10 grid gap-12 sm:mt-9 sm:grid-cols-12 sm:gap-8">
           <motion.p
             initial={{ opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
@@ -173,7 +173,7 @@ export function Hero() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5, delay: 0.8 }}
-          className="mt-16 flex items-center gap-4 text-sm text-fg-muted sm:mt-20"
+          className="mt-16 flex items-center gap-4 text-sm text-fg-muted sm:mt-12"
         >
           <a
             href="#work"

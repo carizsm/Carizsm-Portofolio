@@ -12,7 +12,12 @@ export function Skills() {
             <h3 className="text-sm uppercase tracking-[0.14em] text-fg-subtle">{group.label}</h3>
             <ul className="mt-3 space-y-2 text-fg">
               {group.items.map((item) => (
-                <li key={item.name} className="flex items-center justify-between gap-3 text-sm"><span>{item.name}</span><span className="text-xs text-fg-subtle">L{item.level}</span></li>
+                <li key={item.name} className="flex items-center justify-between gap-3 text-sm">
+                  <span>{item.name}</span>
+                  <span className="max-w-36 text-right text-xs leading-snug text-fg-subtle">
+                    {item.detail ?? `L${item.level}`}
+                  </span>
+                </li>
               ))}
             </ul>
           </Reveal>
