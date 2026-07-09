@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowUpRight, ChevronLeft, ChevronRight } from "lucide-react";
+import { ArrowUpRight, ChevronLeft, ChevronRight, LayoutGrid, LayoutList } from "lucide-react";
 import { motion, useReducedMotion } from "motion/react";
 import type { ReactNode } from "react";
 import { useCallback, useEffect, useRef, useState } from "react";
@@ -12,15 +12,37 @@ import { cn } from "@/lib/utils";
 
 const easing = [0.22, 1, 0.36, 1] as const;
 
+const categories = ["All", "Engineering & Dev", "Product & UX Design", "Research & IoT"] as const;
+type Category = (typeof categories)[number];
+
+const projectCategoryMap: Record<string, Category[]> = {
+  iterra: ["Engineering & Dev", "Product & UX Design"],
+  motiva: ["Product & UX Design"],
+  "adaptive-pomodoro": ["Engineering & Dev", "Research & IoT"],
+  "skin-cancer-detection": ["Engineering & Dev"],
+  kakilima: ["Product & UX Design"],
+  "the-goat": ["Research & IoT"],
+  "edu-parent": ["Product & UX Design"],
+  "smart-lamp": ["Engineering & Dev", "Research & IoT"],
+};
+
 export function Projects() {
+  const [selectedCategory, setSelectedCategory] = useState<Category>("All");
+  const [viewMode, setViewMode] = useState<"carousel" | "grid">("carousel");
   const [activeIndex, setActiveIndex] = useState(0);
   const railRef = useRef<HTMLDivElement>(null);
   const scrollFrameRef = useRef<number | null>(null);
   const reduce = useReducedMotion();
 
+  const filteredProjects = projects.filter((project) => {
+    if (selectedCategory === "All") return true;
+    return projectCategoryMap[project.id]?.includes(selectedCategory);
+  });
+
   const scrollToProject = useCallback(
     (index: number) => {
-      const nextIndex = Math.max(0, Math.min(projects.length - 1, index));
+      const maxIndex = filteredProjects.length - 1;
+      const nextIndex = Math.max(0, Math.min(maxIndex, index));
       const node = railRef.current?.querySelector<HTMLElement>(
         `[data-project-card="${nextIndex}"]`,
       );
@@ -32,7 +54,7 @@ export function Projects() {
       });
       setActiveIndex(nextIndex);
     },
-    [reduce],
+    [reduce, filteredProjects.length],
   );
 
   const handleRailScroll = useCallback(() => {
@@ -58,9 +80,10 @@ export function Projects() {
         { index: activeIndex, distance: Number.POSITIVE_INFINITY },
       );
 
-      setActiveIndex(nearest.index);
+      const nextIndex = Math.max(0, Math.min(filteredProjects.length - 1, nearest.index));
+      setActiveIndex(nextIndex);
     });
-  }, [activeIndex]);
+  }, [activeIndex, filteredProjects.length]);
 
   useEffect(() => {
     return () => {
@@ -85,76 +108,183 @@ export function Projects() {
           }
         />
 
-        <div className="mb-5 flex items-end justify-between gap-4">
-          <div>
-            <p className="max-w-md text-sm leading-relaxed text-fg-muted">
-              A sideways view across product, research, design, and systems work.
-            </p>
-            <p className="mt-2 text-xs text-fg-subtle sm:hidden">
+        <div className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
+          <p className="max-w-md text-sm leading-relaxed text-fg-muted">
+            A sideways view across product, research, design, and systems work.
+          </p>
+          {viewMode === "carousel" && filteredProjects.length > 1 && (
+            <p className="hidden text-xs text-fg-subtle sm:block">
               Swipe the cards or use the arrow controls.
             </p>
-          </div>
-          <div className="flex shrink-0 items-center gap-2">
-            <RailButton
-              label="Previous project"
-              disabled={activeIndex === 0}
-              onClick={() => scrollToProject(activeIndex - 1)}
-            >
-              <ChevronLeft className="h-4 w-4" />
-            </RailButton>
-            <RailButton
-              label="Next project"
-              disabled={activeIndex === projects.length - 1}
-              onClick={() => scrollToProject(activeIndex + 1)}
-            >
-              <ChevronRight className="h-4 w-4" />
-            </RailButton>
-          </div>
+          )}
         </div>
-      </div>
 
-      <div
-        ref={railRef}
-        onScroll={handleRailScroll}
-        className="fade-edge-r -mx-5 flex snap-x snap-mandatory gap-4 overflow-x-auto scroll-smooth px-5 pb-6 pt-2 [scrollbar-width:none] sm:-mx-8 sm:gap-5 sm:px-8 md:pl-28 lg:pl-32 xl:gap-6 [&::-webkit-scrollbar]:hidden"
-        aria-label="Selected work carousel"
-      >
-        {projects.map((project, index) => (
-          <ProjectSlide
-            key={project.id}
-            project={project}
-            index={index}
-            active={index === activeIndex}
-          />
-        ))}
-      </div>
-
-      <div className="mx-auto mt-1 flex max-w-6xl items-center justify-between gap-5">
-        <div className="hidden gap-1 sm:flex">
-          {projects.map((project, index) => (
-            <button
-              key={project.id}
-              type="button"
-              onClick={() => scrollToProject(index)}
-              title={`Show ${project.title}`}
-              className="group grid h-8 w-8 place-items-center rounded-full"
-            >
-              <span
-                aria-hidden
+        {/* Filter and View Mode Controls */}
+        <div className="mt-8 flex flex-col gap-4 border-b border-border pb-6 sm:flex-row sm:items-center sm:justify-between">
+          {/* Categories */}
+          <div className="flex flex-wrap gap-1.5">
+            {categories.map((cat) => (
+              <button
+                key={cat}
+                type="button"
+                onClick={() => {
+                  setSelectedCategory(cat);
+                  setActiveIndex(0);
+                  if (viewMode === "carousel") {
+                    setTimeout(() => {
+                      if (railRef.current) {
+                        railRef.current.scrollLeft = 0;
+                      }
+                    }, 10);
+                  }
+                }}
                 className={cn(
-                  "h-1.5 rounded-full transition-all duration-300",
-                  index === activeIndex
-                    ? "w-8 bg-accent"
-                    : "w-2 bg-border-strong group-hover:bg-fg-subtle",
+                  "rounded-full px-3.5 py-1.5 text-xs font-medium transition-all duration-300 border focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-accent",
+                  selectedCategory === cat
+                    ? "bg-accent border-accent text-accent-fg font-semibold shadow-[0_4px_12px_color-mix(in_oklch,var(--color-accent)_20%,transparent)]"
+                    : "bg-bg-elevated/40 border-border text-fg-muted hover:border-border-strong hover:text-fg"
                 )}
-              />
-              <span className="sr-only">Show {project.title}</span>
-            </button>
-          ))}
+              >
+                {cat}
+              </button>
+            ))}
+          </div>
+
+          {/* Controls: View Mode & Carousel Nav */}
+          <div className="flex items-center justify-between gap-4 sm:justify-end">
+            {/* View Mode Toggle */}
+            <div className="flex items-center rounded-full border border-border bg-bg-elevated/20 p-1">
+              <button
+                type="button"
+                onClick={() => setViewMode("carousel")}
+                className={cn(
+                  "flex h-8 items-center gap-1.5 rounded-full px-3 text-xs font-medium transition-all",
+                  viewMode === "carousel"
+                    ? "bg-bg text-accent font-semibold shadow-sm"
+                    : "text-fg-muted hover:text-fg"
+                )}
+                title="Carousel view"
+              >
+                <LayoutList className="h-3.5 w-3.5" />
+                <span>Carousel</span>
+              </button>
+              <button
+                type="button"
+                onClick={() => setViewMode("grid")}
+                className={cn(
+                  "flex h-8 items-center gap-1.5 rounded-full px-3 text-xs font-medium transition-all",
+                  viewMode === "grid"
+                    ? "bg-bg text-accent font-semibold shadow-sm"
+                    : "text-fg-muted hover:text-fg"
+                )}
+                title="Grid view"
+              >
+                <LayoutGrid className="h-3.5 w-3.5" />
+                <span>Grid</span>
+              </button>
+            </div>
+
+            {/* Previous/Next buttons */}
+            {viewMode === "carousel" && filteredProjects.length > 1 && (
+              <div className="flex shrink-0 items-center gap-1.5">
+                <RailButton
+                  label="Previous project"
+                  disabled={activeIndex === 0}
+                  onClick={() => scrollToProject(activeIndex - 1)}
+                >
+                  <ChevronLeft className="h-4 w-4" />
+                </RailButton>
+                <RailButton
+                  label="Next project"
+                  disabled={activeIndex === filteredProjects.length - 1}
+                  onClick={() => scrollToProject(activeIndex + 1)}
+                >
+                  <ChevronRight className="h-4 w-4" />
+                </RailButton>
+              </div>
+            )}
+          </div>
         </div>
-        <p className="font-mono text-xs text-fg-subtle">
-          {String(activeIndex + 1).padStart(2, "0")} / {String(projects.length).padStart(2, "0")}
-        </p>
+      </div>
+
+      <div className="mt-8">
+        {viewMode === "carousel" ? (
+          filteredProjects.length > 0 ? (
+            <>
+              <div
+                ref={railRef}
+                onScroll={handleRailScroll}
+                className="fade-edge-r -mx-5 flex snap-x snap-mandatory gap-4 overflow-x-auto scroll-smooth px-5 pb-6 pt-2 [scrollbar-width:none] sm:-mx-8 sm:gap-5 sm:px-8 md:pl-28 lg:pl-32 xl:gap-6 [&::-webkit-scrollbar]:hidden"
+                aria-label="Selected work carousel"
+              >
+                {filteredProjects.map((project, index) => (
+                  <ProjectSlide
+                    key={project.id}
+                    project={project}
+                    index={index}
+                    active={index === activeIndex}
+                  />
+                ))}
+              </div>
+
+              <div className="mx-auto mt-1 flex max-w-6xl items-center justify-between gap-5 px-5 sm:px-8">
+                <div className="hidden gap-1 sm:flex">
+                  {filteredProjects.map((project, index) => (
+                    <button
+                      key={project.id}
+                      type="button"
+                      onClick={() => scrollToProject(index)}
+                      title={`Show ${project.title}`}
+                      className="group grid h-8 w-8 place-items-center rounded-full"
+                    >
+                      <span
+                        aria-hidden
+                        className={cn(
+                          "h-1.5 rounded-full transition-all duration-300",
+                          index === activeIndex
+                            ? "w-8 bg-accent"
+                            : "w-2 bg-border-strong group-hover:bg-fg-subtle",
+                        )}
+                      />
+                      <span className="sr-only">Show {project.title}</span>
+                    </button>
+                  ))}
+                </div>
+                <p className="font-mono text-xs text-fg-subtle ml-auto">
+                  {String(activeIndex + 1).padStart(2, "0")} / {String(filteredProjects.length).padStart(2, "0")}
+                </p>
+              </div>
+            </>
+          ) : (
+            <div className="mx-auto max-w-6xl py-12 text-center text-fg-muted px-5">
+              No projects in this category.
+            </div>
+          )
+        ) : (
+          /* Grid View */
+          <div className="mx-auto max-w-6xl px-5 sm:px-8">
+            {filteredProjects.length > 0 ? (
+              <motion.div 
+                layout={!reduce ? "position" : undefined}
+                className="grid gap-6 sm:grid-cols-2"
+              >
+                {filteredProjects.map((project, index) => (
+                  <ProjectSlide
+                    key={project.id}
+                    project={project}
+                    index={index}
+                    active={false}
+                    isGrid={true}
+                  />
+                ))}
+              </motion.div>
+            ) : (
+              <div className="py-12 text-center text-fg-muted">
+                No projects in this category.
+              </div>
+            )}
+          </div>
+        )}
       </div>
 
       <div className="mx-auto mt-16 max-w-6xl border-t border-border pt-8 sm:mt-20">
@@ -205,29 +335,37 @@ function ProjectSlide({
   project,
   index,
   active,
+  isGrid = false,
 }: {
   project: Project;
   index: number;
   active: boolean;
+  isGrid?: boolean;
 }) {
   const reduce = useReducedMotion();
 
   return (
     <motion.article
+      layout={!reduce ? "position" : undefined}
       data-project-card={index}
-      initial={reduce ? { opacity: 0 } : { opacity: 0, x: 36 }}
-      whileInView={{ opacity: 1, x: 0 }}
+      initial={reduce ? { opacity: 0 } : { opacity: 0, y: isGrid ? 20 : 0, x: isGrid ? 0 : 36 }}
+      whileInView={{ opacity: 1, y: 0, x: 0 }}
       viewport={{ once: true, margin: "0px 0px -8% 0px" }}
       transition={{ duration: 0.58, ease: easing, delay: Math.min(index * 0.05, 0.18) }}
       className={cn(
-        "group relative grid w-[86vw] max-w-[760px] shrink-0 snap-center overflow-hidden rounded-2xl border bg-bg text-fg transition-all duration-500 sm:w-[74vw] md:w-[68vw] lg:w-[58vw] xl:w-[740px]",
-        active
-          ? "border-accent/45 shadow-[0_28px_90px_color-mix(in_oklch,var(--color-fg)_12%,transparent)]"
-          : "border-border opacity-72 shadow-none hover:opacity-100",
+        "group relative grid overflow-hidden rounded-2xl border bg-bg text-fg transition-all duration-500",
+        isGrid
+          ? "w-full border-border hover:border-accent/45 hover:shadow-[0_16px_48px_color-mix(in_oklch,var(--color-fg)_8%,transparent)]"
+          : cn(
+              "w-[86vw] max-w-[760px] shrink-0 snap-center sm:w-[74vw] md:w-[68vw] lg:w-[58vw] xl:w-[740px]",
+              active
+                ? "border-accent/45 shadow-[0_28px_90px_color-mix(in_oklch,var(--color-fg)_12%,transparent)]"
+                : "border-border opacity-72 shadow-none hover:opacity-100",
+            )
       )}
       aria-labelledby={`project-${project.id}-title`}
     >
-      <ProjectCover project={project} active={active} />
+      <ProjectCover project={project} active={active || isGrid} />
 
       <div className="relative z-10 mt-auto border-t border-border bg-bg/90 px-5 py-5 backdrop-blur sm:px-6">
         <ProjectIndex index={index + 1} type={project.type} />

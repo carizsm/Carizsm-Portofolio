@@ -16,6 +16,7 @@ export function Hero() {
     0,
   );
   const [reduceMotion, setReduceMotion] = useState(false);
+  const [localTime, setLocalTime] = useState("");
 
   useEffect(() => {
     const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -23,6 +24,36 @@ export function Hero() {
     if (mq.matches) return;
     const t = window.setInterval(advance, 2400);
     return () => window.clearInterval(t);
+  }, []);
+
+  useEffect(() => {
+    const updateClock = () => {
+      const now = new Date();
+      try {
+        const formatted = new Intl.DateTimeFormat("en-US", {
+          timeZone: "Asia/Jakarta",
+          hour: "numeric",
+          minute: "2-digit",
+          second: "2-digit",
+          hour12: true,
+        }).format(now);
+        setLocalTime(formatted);
+      } catch {
+        const utc = now.getTime() + now.getTimezoneOffset() * 60000;
+        const bandungTime = new Date(utc + 3600000 * 7);
+        let hours = bandungTime.getHours();
+        const minutes = String(bandungTime.getMinutes()).padStart(2, "0");
+        const seconds = String(bandungTime.getSeconds()).padStart(2, "0");
+        const ampm = hours >= 12 ? "PM" : "AM";
+        hours = hours % 12;
+        hours = hours ? hours : 12;
+        setLocalTime(`${hours}:${minutes}:${seconds} ${ampm}`);
+      }
+    };
+
+    updateClock();
+    const interval = setInterval(updateClock, 1000);
+    return () => clearInterval(interval);
   }, []);
 
   const longest = rotatingWords.reduce((a, b) =>
@@ -143,9 +174,20 @@ export function Hero() {
               <dt className="text-xs uppercase tracking-[0.16em] text-fg-subtle">
                 Based in
               </dt>
-              <dd className="inline-flex items-center gap-1.5 text-fg">
-                <MapPin className="h-3.5 w-3.5 text-fg-muted" />
-                {personal.location}
+              <dd className="flex flex-col text-fg">
+                <span className="inline-flex items-center gap-1.5 font-medium">
+                  <MapPin className="h-3.5 w-3.5 text-accent" />
+                  {personal.location}
+                </span>
+                {localTime && (
+                  <span className="mt-1 font-mono text-[10px] text-fg-subtle flex items-center gap-1">
+                    <span className="relative flex h-1.5 w-1.5 mr-0.5">
+                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent opacity-75"></span>
+                      <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-accent"></span>
+                    </span>
+                    {localTime}
+                  </span>
+                )}
               </dd>
             </div>
             <div className="flex flex-col gap-1">
