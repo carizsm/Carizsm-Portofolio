@@ -29,13 +29,23 @@ export interface Experience {
 
 export const experiences: Experience[] = [
   {
+    id: "ypt-backend",
+    role: "Backend Developer",
+    org: "Yayasan Pendidikan Telkom",
+    start: "Aug 2026",
+    end: "Present",
+    summary:
+      "Develop backend services that support educational and operational workflows. Collaborate with frontend developers and stakeholders to deliver reliable features, data flows, and system integrations.",
+    tags: ["Backend development", "Collaboration", "Education"],
+  },
+  {
     id: "ypt-frontend",
     role: "Frontend Developer",
     org: "Yayasan Pendidikan Telkom",
     start: "Jan 2026",
     end: "Present",
     summary:
-      "Contribute to DIGITS and internal education platforms, building responsive interfaces that support school learning and operational workflows.",
+      "Build responsive interfaces for educational platforms, supporting learning and operational workflows in collaboration with the wider development team.",
     tags: ["Vue 3", "Nuxt 3", "REST", "Education"],
   },
   {

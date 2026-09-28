@@ -1,274 +1,69 @@
-"use client";
-
 import Image from "next/image";
-import { useEffect, useReducer, useState } from "react";
-import { motion, AnimatePresence } from "motion/react";
-import { ArrowDown, MapPin } from "lucide-react";
+import { ArrowDown, ArrowUpRight, MoveUpRight } from "lucide-react";
 import { personal } from "@/content/personal";
 
-const rotatingWords = ["human-centered", "considered", "useful", "joyful"];
-
-const easing = [0.22, 1, 0.36, 1] as const;
-
 export function Hero() {
-  const [idx, advance] = useReducer(
-    (s: number) => (s + 1) % rotatingWords.length,
-    0,
-  );
-  const [reduceMotion, setReduceMotion] = useState(false);
-  const [localTime, setLocalTime] = useState("");
-
-  useEffect(() => {
-    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
-    setReduceMotion(mq.matches);
-    if (mq.matches) return;
-    const t = window.setInterval(advance, 2400);
-    return () => window.clearInterval(t);
-  }, []);
-
-  useEffect(() => {
-    const updateClock = () => {
-      const now = new Date();
-      try {
-        const formatted = new Intl.DateTimeFormat("en-US", {
-          timeZone: "Asia/Jakarta",
-          hour: "numeric",
-          minute: "2-digit",
-          second: "2-digit",
-          hour12: true,
-        }).format(now);
-        setLocalTime(formatted);
-      } catch {
-        const utc = now.getTime() + now.getTimezoneOffset() * 60000;
-        const bandungTime = new Date(utc + 3600000 * 7);
-        let hours = bandungTime.getHours();
-        const minutes = String(bandungTime.getMinutes()).padStart(2, "0");
-        const seconds = String(bandungTime.getSeconds()).padStart(2, "0");
-        const ampm = hours >= 12 ? "PM" : "AM";
-        hours = hours % 12;
-        hours = hours ? hours : 12;
-        setLocalTime(`${hours}:${minutes}:${seconds} ${ampm}`);
-      }
-    };
-
-    updateClock();
-    const interval = setInterval(updateClock, 1000);
-    return () => clearInterval(interval);
-  }, []);
-
-  const longest = rotatingWords.reduce((a, b) =>
-    a.length > b.length ? a : b,
-  );
-
-  const firstLine = personal.name.split(" ").slice(0, 2).join(" ");
-  const secondLine = personal.name.split(" ").slice(2).join(" ");
-
   return (
-    <section
-      aria-labelledby="hero-name"
-      className="relative isolate flex min-h-[100svh] flex-col justify-end overflow-hidden pb-16 pt-28 sm:pb-14 sm:pt-24"
-    >
-      <div aria-hidden className="pointer-events-none absolute inset-0 -z-10">
-        <div
-          className="absolute -right-32 -top-32 h-[60vh] w-[60vh] rounded-full opacity-60 blur-[120px]"
-          style={{
-            background:
-              "radial-gradient(closest-side, var(--color-accent-soft), transparent)",
-          }}
-        />
-        <div className="absolute inset-0 opacity-[0.06] [mask-image:radial-gradient(ellipse_at_center,black,transparent_70%)]">
-          <div className="grid-lines absolute inset-0" />
+    <section aria-labelledby="hero-title" className="studio-hero studio-shell">
+      <div className="studio-hero-top studio-label">
+        <span>Cahya Rizqi Syah Maulana</span>
+        <span className="hidden sm:inline">{personal.location} / UTC+7</span>
+      </div>
+      <div className="studio-hero-grid">
+        <div className="studio-intro">
+          <p className="studio-label text-accent">Software engineer & product-minded builder</p>
+          <h1 id="hero-title" className="studio-title">
+            A little<br />curious.<br />
+            <span className="studio-title-last">Very hands-on<span className="text-accent">.</span></span>
+          </h1>
+          <p className="studio-intro-copy">
+            I’m Cahya. I turn questions into software, product experiments,
+            and things that work beyond the screen.
+          </p>
+          <a href="#work" className="studio-cta">
+            Take a look around <ArrowDown aria-hidden size={17} />
+          </a>
+        </div>
+        <div className="studio-desk" aria-label="A few things I’m working on">
+          <div className="celestial-orbit" aria-hidden="true"><span /></div>
+          <span className="studio-desk-label studio-label">On the worktable</span>
+          <a href="#work-iterra" className="desk-trip desk-object">
+            <div className="flex items-center justify-between gap-3 studio-label">
+              <span>01 / Product</span><ArrowUpRight aria-hidden size={18} />
+            </div>
+            <span className="desk-trip-title">Going places.<br />Together.</span>
+            <div className="desk-route" aria-hidden="true">
+              <span>A</span><i /><span>B</span><i /><span>C</span>
+            </div>
+            <div className="desk-trip-footer">
+              <strong>Iterra</strong><span>Travel planning MVP</span>
+            </div>
+          </a>
+          <a href="#work-adaptive-pomodoro" className="desk-research desk-object">
+            <div className="studio-label flex items-center justify-between gap-2">
+              <span>02 / Research</span><ArrowUpRight aria-hidden size={16} />
+            </div>
+            <span className="desk-research-title">Can a timer<br />pay attention?</span>
+            <div className="desk-research-plot">
+              <Image src="/projects/adaptive-pomodoro-probability.png"
+                alt="Focus-probability distribution from the Adaptive Pomodoro P1 evaluation"
+                width={2360} height={1280} sizes="240px" />
+            </div>
+            <span className="studio-label">Adaptive Pomodoro ↗</span>
+          </a>
+          <a href="#about" className="desk-portrait desk-object" aria-label="Meet Cahya, the person behind the work">
+            <div className="desk-portrait-image">
+              <Image src="/profile/cahya-hero.png" alt="Cahya sitting on a stool" fill priority sizes="(max-width: 640px) 140px, 175px" />
+            </div>
+            <span>Hi, I’m Cahya.<ArrowUpRight aria-hidden size={14} /></span>
+          </a>
+          <span aria-hidden="true" className="desk-note">a person behind<br />the pixels <MoveUpRight size={25} strokeWidth={1} /></span>
         </div>
       </div>
-
-      <motion.div
-        aria-hidden
-        initial={{ x: 24 }}
-        animate={{ x: 0 }}
-        transition={{ duration: 0.8, ease: easing, delay: 0.2 }}
-        className="pointer-events-none absolute bottom-[-3rem] right-[-9rem] z-0 h-[46svh] w-[88vw] max-w-[36rem] opacity-[0.12] [mask-image:linear-gradient(90deg,transparent_0%,black_48%,black_100%)] sm:bottom-24 sm:right-[max(-8rem,calc((100vw-72rem)/2-9rem))] sm:h-[72svh] sm:w-[48vw] sm:max-w-[40rem] sm:opacity-70 sm:[mask-image:linear-gradient(90deg,transparent_0%,black_34%,black_100%)] lg:bottom-36 lg:h-[80svh]"
-      >
-        <Image
-          src="/profile/cahya-hero.png"
-          alt=""
-          width={1467}
-          height={2200}
-          priority
-          sizes="(max-width: 640px) 88vw, (max-width: 1024px) 48vw, 672px"
-          className="h-full w-full object-contain object-bottom grayscale-[0.76] sepia-[0.16] saturate-[0.72] contrast-[1.08] brightness-[1.02] drop-shadow-[0_28px_70px_rgba(0,0,0,0.18)] dark:brightness-[0.84] dark:contrast-[1.12] dark:drop-shadow-[0_32px_80px_rgba(0,0,0,0.38)]"
-        />
-      </motion.div>
-
-      <div className="relative z-10 mx-auto w-full max-w-6xl px-5 sm:px-8">
-        <motion.div
-          initial={{ opacity: 0, y: 6 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, ease: easing }}
-          className="mb-8 inline-flex items-center gap-2 text-xs uppercase tracking-[0.18em] text-fg-muted sm:mb-7"
-        >
-          <span className="relative grid h-2 w-2 place-items-center">
-            <span className="absolute h-2 w-2 rounded-full bg-accent" />
-            {!reduceMotion && (
-              <motion.span
-                className="absolute h-2 w-2 rounded-full bg-accent"
-                animate={{ scale: [1, 2.4], opacity: [0.6, 0] }}
-                transition={{
-                  duration: 1.6,
-                  repeat: Infinity,
-                  ease: "easeOut",
-                }}
-              />
-            )}
-          </span>
-          <span>Available · Product-minded developer & designer</span>
-        </motion.div>
-
-        <h1
-          id="hero-name"
-          className="serif text-balance text-[clamp(3rem,9.5vw,7.25rem)] font-normal leading-[0.95] tracking-tighter text-fg"
-        >
-          <SplitReveal text={firstLine} />
-          <span className="block" />
-          <SplitReveal text={secondLine} delay={0.18} italic />
-        </h1>
-
-        <div className="mt-10 grid gap-12 sm:mt-9 sm:grid-cols-12 sm:gap-8">
-          <motion.p
-            initial={{ opacity: 0, y: 8 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.55, ease: easing, delay: 0.45 }}
-            className="text-balance text-base text-fg-muted sm:col-span-7 sm:text-lg"
-          >
-            Final-year IT student turning ideas into{" "}
-            <span className="relative inline-block whitespace-nowrap align-baseline">
-              <span className="invisible">{longest}</span>
-              <span className="absolute inset-0 grid place-items-start">
-                <AnimatePresence mode="wait">
-                  <motion.span
-                    key={rotatingWords[idx]}
-                    initial={
-                      reduceMotion ? { opacity: 1 } : { opacity: 0, y: 10 }
-                    }
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={
-                      reduceMotion ? { opacity: 1 } : { opacity: 0, y: -10 }
-                    }
-                    transition={{ duration: 0.32, ease: easing }}
-                    className="text-accent"
-                  >
-                    {rotatingWords[idx]}
-                  </motion.span>
-                </AnimatePresence>
-              </span>
-            </span>{" "}
-            products.
-          </motion.p>
-
-          <motion.dl
-            initial={{ opacity: 0, y: 8 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.55, ease: easing, delay: 0.55 }}
-            className="grid grid-cols-2 gap-x-6 gap-y-4 text-sm sm:col-span-5"
-          >
-            <div className="flex flex-col gap-1">
-              <dt className="text-xs uppercase tracking-[0.16em] text-fg-subtle">
-                Based in
-              </dt>
-              <dd className="flex flex-col text-fg">
-                <span className="inline-flex items-center gap-1.5 font-medium">
-                  <MapPin className="h-3.5 w-3.5 text-accent" />
-                  {personal.location}
-                </span>
-                {localTime && (
-                  <span className="mt-1 font-mono text-[10px] text-fg-subtle flex items-center gap-1">
-                    <span className="relative flex h-1.5 w-1.5 mr-0.5">
-                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent opacity-75"></span>
-                      <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-accent"></span>
-                    </span>
-                    {localTime}
-                  </span>
-                )}
-              </dd>
-            </div>
-            <div className="flex flex-col gap-1">
-              <dt className="text-xs uppercase tracking-[0.16em] text-fg-subtle">
-                Studying
-              </dt>
-              <dd className="text-fg">B.Sc. IT, Telkom Univ.</dd>
-            </div>
-            <div className="flex flex-col gap-1">
-              <dt className="text-xs uppercase tracking-[0.16em] text-fg-subtle">
-                Working on
-              </dt>
-              <dd className="text-fg">Adaptive Pomodoro · Frontend at YPT</dd>
-            </div>
-            <div className="flex flex-col gap-1">
-              <dt className="text-xs uppercase tracking-[0.16em] text-fg-subtle">
-                Open to
-              </dt>
-              <dd className="text-fg">Frontend · Product collaborations</dd>
-            </div>
-          </motion.dl>
-        </div>
-
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.5, delay: 0.8 }}
-          className="mt-16 flex items-center gap-4 text-sm text-fg-muted sm:mt-12"
-        >
-          <a
-            href="#work"
-            className="group inline-flex items-center gap-2 rounded-full border border-border-strong bg-bg-elevated px-4 py-2 text-fg transition-colors hover:border-accent hover:text-accent"
-          >
-            <span>See selected work</span>
-            <ArrowDown className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-y-0.5" />
-          </a>
-          <span aria-hidden className="h-px w-12 bg-border-strong" />
-          <a
-            href="#contact"
-            className="hidden text-fg-muted transition-colors hover:text-fg sm:inline"
-          >
-            Get in touch →
-          </a>
-        </motion.div>
+      <div className="studio-hero-bottom">
+        <span className="studio-label">Web products / Applied research / Connected devices</span>
+        <a href="#work-index" className="studio-text-link">Browse the work index <ArrowUpRight aria-hidden size={15} /></a>
       </div>
     </section>
-  );
-}
-
-function SplitReveal({
-  text,
-  delay = 0,
-  italic = false,
-}: {
-  text: string;
-  delay?: number;
-  italic?: boolean;
-}) {
-  const words = text.split(" ");
-  return (
-    <span className={italic ? "italic" : ""}>
-      {words.map((word, i) => (
-        <span
-          key={`${word}-${i}`}
-          className="inline-block overflow-hidden align-baseline pb-[0.06em]"
-        >
-          <motion.span
-            initial={{ y: "100%" }}
-            animate={{ y: "0%" }}
-            transition={{
-              duration: 0.7,
-              ease: easing,
-              delay: delay + i * 0.06,
-            }}
-            className="inline-block"
-          >
-            {word}
-            {i < words.length - 1 ? " " : ""}
-          </motion.span>
-        </span>
-      ))}
-    </span>
   );
 }

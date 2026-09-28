@@ -1,4 +1,5 @@
 import { cn } from "@/lib/utils";
+import { Reveal } from "./Reveal";
 
 export function SectionShell({
   id,
@@ -13,7 +14,7 @@ export function SectionShell({
     <section
       id={id}
       className={cn(
-        "relative mx-auto w-full max-w-6xl px-5 py-24 sm:px-8 sm:py-32",
+        "studio-shell studio-section",
         className,
       )}
     >
@@ -34,15 +35,15 @@ export function SectionHead({
   className?: string;
 }) {
   return (
-    <header className={cn("mb-12 sm:mb-16", className)}>
-      <div className="mb-5 flex items-center gap-3 text-xs uppercase tracking-[0.18em] text-fg-subtle">
+    <Reveal as="header" className={cn("studio-section-heading", className)}>
+      <div className="studio-label mb-5 flex items-center gap-3 text-fg-muted">
         <span className="font-mono text-accent">{index}</span>
         <span aria-hidden className="h-px w-8 bg-border-strong" />
         <span>{label}</span>
       </div>
-      <h2 className="serif text-balance text-4xl font-normal tracking-tightish text-fg sm:text-5xl">
+      <h2 className="text-balance">
         {title}
       </h2>
-    </header>
+    </Reveal>
   );
 }

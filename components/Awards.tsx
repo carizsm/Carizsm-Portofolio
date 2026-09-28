@@ -6,9 +6,9 @@ export function Awards() {
   return (
     <SectionShell id="awards" className="!pt-8 sm:!pt-10">
       <SectionHead index="05" label="Recognition" title="Awards and milestones." />
-      <div className="grid gap-3">
+      <div className="divide-y divide-border border-y border-border">
         {awards.map((award, idx) => (
-          <Reveal key={award.id} delay={idx * 0.04} className="rounded-xl border border-border p-4">
+          <Reveal key={award.id} delay={idx * 0.04} className="py-6">
             <div className="flex items-start justify-between gap-3">
               <div>
                 <h3 className="text-fg">{award.title}</h3>

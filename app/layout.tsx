@@ -2,10 +2,10 @@ import type { Metadata, Viewport } from "next";
 import { Inter, Instrument_Serif } from "next/font/google";
 import { ThemeProvider, THEME_INIT_SCRIPT } from "@/components/ThemeProvider";
 import { Nav } from "@/components/Nav";
-import { ScrollAssist } from "@/components/ScrollAssist";
 import { personal } from "@/content/personal";
 import { getSiteUrl } from "@/lib/site-url";
 import "./globals.css";
+import "./studio.css";
 
 const siteUrl = getSiteUrl();
 
@@ -64,8 +64,8 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = {
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#FAFAF6" },
-    { media: "(prefers-color-scheme: dark)", color: "#161618" },
+    { media: "(prefers-color-scheme: light)", color: "#f5f3ed" },
+    { media: "(prefers-color-scheme: dark)", color: "#151923" },
   ],
 };
 
@@ -77,6 +77,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
+      data-scroll-behavior="smooth"
       suppressHydrationWarning
       className={`${inter.variable} ${instrumentSerif.variable}`}
     >
@@ -96,7 +97,6 @@ export default function RootLayout({
           </a>
           <Nav />
           <main id="main">{children}</main>
-          <ScrollAssist />
         </ThemeProvider>
       </body>
     </html>

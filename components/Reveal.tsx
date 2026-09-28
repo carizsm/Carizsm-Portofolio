@@ -8,7 +8,7 @@ const easing = [0.22, 1, 0.36, 1] as const;
 export function Reveal({
   children,
   delay = 0,
-  y = 16,
+  y = 12,
   className,
   as: Tag = "div",
 }: {
@@ -16,17 +16,18 @@ export function Reveal({
   delay?: number;
   y?: number;
   className?: string;
-  as?: "div" | "span" | "li" | "p";
+  as?: "div" | "span" | "li" | "p" | "header";
 }) {
   const reduce = useReducedMotion();
   const MotionTag = motion[Tag];
 
   return (
     <MotionTag
-      initial={reduce ? { opacity: 0 } : { opacity: 0, y }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "0px 0px -10% 0px" }}
-      transition={{ duration: 0.55, ease: easing, delay }}
+      initial={false}
+      animate={reduce ? { y: 0 } : undefined}
+      whileInView={reduce ? undefined : { y: [y, 0] }}
+      viewport={{ once: true, amount: 0.12 }}
+      transition={{ duration: reduce ? 0 : 0.45, ease: easing, delay: reduce ? 0 : Math.min(delay, 0.12) }}
       className={className}
     >
       {children}

@@ -1,112 +1,135 @@
 "use client";
 
 import Image from "next/image";
-import { ChevronLeft, ChevronRight } from "lucide-react";
-import { AnimatePresence, motion, useReducedMotion } from "motion/react";
-import { useState } from "react";
+import { ArrowUpRight, ChevronLeft, ChevronRight } from "lucide-react";
+import { motion, useReducedMotion } from "motion/react";
+import { useId, useRef, useState } from "react";
+import type { KeyboardEvent, PointerEvent } from "react";
 import type { ProjectMedia } from "@/content/projects";
-import { cn } from "@/lib/utils";
-
-const easing = [0.22, 1, 0.36, 1] as const;
+import "@/app/project-gallery.css";
 
 export function ProjectMediaCarousel({ media }: { media: ProjectMedia[] }) {
   const [index, setIndex] = useState(0);
-  const reduce = useReducedMotion();
+  const galleryId = useId();
+  const reduceMotion = useReducedMotion();
+  const pointerStart = useRef<{ x: number; y: number; id: number } | null>(null);
 
   if (media.length === 0) return null;
 
-  const active = media[index];
+  const activeIndex = Math.min(index, media.length - 1);
+  const active = media[activeIndex];
   const hasMultipleItems = media.length > 1;
-  const prev = () =>
-    setIndex((current) => (current - 1 + media.length) % media.length);
-  const next = () => setIndex((current) => (current + 1) % media.length);
+  const move = (direction: number) =>
+    setIndex((current) =>
+      (Math.min(current, media.length - 1) + direction + media.length) % media.length,
+    );
+
+  function handleKeyDown(event: KeyboardEvent<HTMLDivElement>) {
+    if (!hasMultipleItems || event.altKey || event.ctrlKey || event.metaKey) return;
+    if (event.key === "ArrowLeft" || event.key === "ArrowRight") {
+      event.preventDefault();
+      move(event.key === "ArrowRight" ? 1 : -1);
+    }
+  }
+
+  function handlePointerDown(event: PointerEvent<HTMLDivElement>) {
+    if (!hasMultipleItems || !event.isPrimary || event.button !== 0) return;
+    pointerStart.current = { x: event.clientX, y: event.clientY, id: event.pointerId };
+    event.currentTarget.setPointerCapture(event.pointerId);
+  }
+
+  function handlePointerUp(event: PointerEvent<HTMLDivElement>) {
+    const start = pointerStart.current;
+    pointerStart.current = null;
+    if (!start || start.id !== event.pointerId) return;
+    const distanceX = event.clientX - start.x;
+    const distanceY = event.clientY - start.y;
+    if (Math.abs(distanceX) > 64 && Math.abs(distanceX) > Math.abs(distanceY) * 1.5) {
+      move(distanceX < 0 ? 1 : -1);
+    }
+  }
 
   return (
-    <div className="w-full">
-      <div className="relative overflow-hidden rounded-2xl border border-border bg-bg-elevated">
-        <AnimatePresence mode="wait" initial={false}>
+    <div
+      className="project-gallery"
+      role="region"
+      aria-label="Project images"
+      aria-roledescription={hasMultipleItems ? "carousel" : undefined}
+      onKeyDown={handleKeyDown}
+    >
+      <figure className="project-gallery-figure">
+        <div
+          id={galleryId}
+          className="project-gallery-stage"
+          data-swipe={hasMultipleItems || undefined}
+          onPointerDown={handlePointerDown}
+          onPointerUp={handlePointerUp}
+          onPointerCancel={() => { pointerStart.current = null; }}
+        >
           <motion.div
             key={active.src}
-            drag={reduce ? false : "x"}
-            dragConstraints={{ left: 0, right: 0 }}
-            dragElastic={0.14}
-            onDragEnd={(_, info) => {
-              if (info.offset.x < -72) next();
-              if (info.offset.x > 72) prev();
-            }}
-            initial={reduce ? { opacity: 0 } : { opacity: 0, x: 32 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={reduce ? { opacity: 0 } : { opacity: 0, x: -32 }}
-            transition={{ duration: 0.36, ease: easing }}
-            className="relative aspect-[16/10] cursor-grab active:cursor-grabbing"
+            className="project-gallery-image"
+            initial={reduceMotion ? false : { opacity: 0.5 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: reduceMotion ? 0 : 0.18 }}
           >
             <Image
               src={active.src}
               alt={active.alt}
               fill
-              sizes="(min-width: 768px) 896px, 100vw"
-              className={cn(
-                active.fit === "contain"
-                  ? "object-contain p-3 sm:p-5"
-                  : "object-cover",
-              )}
-              priority
+              sizes="(min-width: 1240px) 1160px, (min-width: 1001px) calc(100vw - 80px), (min-width: 401px) calc(100vw - 48px), calc(100vw - 36px)"
+              className={active.fit === "contain" ? "gallery-image-contain" : "gallery-image-cover"}
+              draggable={false}
+              priority={activeIndex === 0}
             />
           </motion.div>
-        </AnimatePresence>
+        </div>
 
-        <div
-          aria-hidden
-          className="pointer-events-none absolute inset-0 ring-1 ring-inset ring-fg/[0.03]"
-        />
-
-        <div className="absolute inset-x-3 bottom-3 flex items-center justify-between gap-3">
-          <p className="rounded-full border border-border bg-bg/85 px-3 py-1.5 text-xs text-fg-muted backdrop-blur">
+        <figcaption className="project-gallery-caption">
+          <p aria-live="polite" aria-atomic="true">
+            {hasMultipleItems && (
+              <span className="project-gallery-count">
+                <span className="sr-only">Image </span>
+                {String(activeIndex + 1).padStart(2, "0")}
+                <span aria-hidden="true"> / </span>
+                <span className="sr-only"> of </span>
+                {String(media.length).padStart(2, "0")}
+              </span>
+            )}
             {active.caption}
           </p>
-          {hasMultipleItems && (
-            <div className="flex gap-1.5 rounded-full border border-border bg-bg/85 p-1 backdrop-blur">
-              <button
-                type="button"
-                onClick={prev}
-                title="Previous image"
-                className="inline-flex h-8 w-8 items-center justify-center rounded-full text-fg-muted transition-colors hover:bg-bg-elevated hover:text-accent"
-              >
-                <ChevronLeft className="h-4 w-4" />
-                <span className="sr-only">Previous image</span>
-              </button>
-              <button
-                type="button"
-                onClick={next}
-                title="Next image"
-                className="inline-flex h-8 w-8 items-center justify-center rounded-full text-fg-muted transition-colors hover:bg-bg-elevated hover:text-accent"
-              >
-                <ChevronRight className="h-4 w-4" />
-                <span className="sr-only">Next image</span>
-              </button>
-            </div>
-          )}
-        </div>
-      </div>
+          <a href={active.src} target="_blank" rel="noopener noreferrer">
+            View original <ArrowUpRight size={14} aria-hidden="true" />
+            <span className="sr-only"> (opens in a new tab)</span>
+          </a>
+        </figcaption>
+      </figure>
 
       {hasMultipleItems && (
-        <div className="mt-3 flex justify-center gap-2">
-          {media.map((item, itemIndex) => (
-            <button
-              key={item.src}
-              type="button"
-              onClick={() => setIndex(itemIndex)}
-              title={item.caption}
-              className={cn(
-                "h-1.5 rounded-full transition-all",
-                itemIndex === index
-                  ? "w-7 bg-accent"
-                  : "w-1.5 bg-border-strong hover:bg-fg-subtle",
-              )}
-            >
-              <span className="sr-only">{item.caption}</span>
+        <div className="project-gallery-controls">
+          <p className="project-gallery-hint">Explore the images</p>
+          <div className="project-gallery-navigation" role="group" aria-label="Image navigation">
+            <button type="button" onClick={() => move(-1)} aria-label="Previous image" aria-controls={galleryId}>
+              <ChevronLeft size={18} aria-hidden="true" />
             </button>
-          ))}
+            <div className="project-gallery-selectors">
+              {media.map((item, itemIndex) => (
+                <button
+                  key={item.src}
+                  type="button"
+                  onClick={() => setIndex(itemIndex)}
+                  aria-label={`Show image ${itemIndex + 1}: ${item.caption}`}
+                  aria-pressed={itemIndex === activeIndex}
+                  aria-controls={galleryId}
+                >
+                  {String(itemIndex + 1).padStart(2, "0")}
+                </button>
+              ))}
+            </div>
+            <button type="button" onClick={() => move(1)} aria-label="Next image" aria-controls={galleryId}>
+              <ChevronRight size={18} aria-hidden="true" />
+            </button>
+          </div>
         </div>
       )}
     </div>
