@@ -83,9 +83,9 @@ export const experiences: Experience[] = [
     role: "Brand Ambassador",
     org: "Open Library Telkom University",
     start: "May 2025",
-    end: "Present",
+    end: "May 2026",
     summary:
-      "Promote library services and digital literacy through educational content, campus communication, and user feedback collection that helps make learning resources easier to access.",
+      "Promoted library services and digital literacy through educational content, campus communication, and user feedback collection that helped make learning resources easier to access.",
     tags: ["Digital literacy", "Content", "User feedback"],
   },
   {

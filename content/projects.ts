@@ -218,9 +218,16 @@ export const projects: Project[] = [
       ],
       media: [
         {
-          src: "/projects/iterra.svg",
-          alt: "Iterra collaborative travel planning app cover artwork",
-          caption: "Collaborative travel planning MVP",
+          src: "/projects/captures/iterra-overview.png",
+          alt: "Iterra demo workspace with trip budget, next activity, and members",
+          caption: "Working app / workspace overview with sample data",
+          fit: "contain",
+        },
+        {
+          src: "/projects/captures/iterra-expenses.png",
+          alt: "Iterra demo expense screen with member balances and suggested repayments",
+          caption: "Working app / shared costs with sample data",
+          fit: "contain",
         },
       ],
     },

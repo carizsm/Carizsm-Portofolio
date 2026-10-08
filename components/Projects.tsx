@@ -8,6 +8,7 @@ import { projects, projectArchive } from "@/content/projects";
 import { studioWorks, type StudioStep, type StudioWork } from "@/content/studio";
 import { StudioArtifact } from "./StudioArtifact";
 import { Reveal } from "./Reveal";
+import { ProjectIndex } from "./ProjectIndex";
 
 const steps: { id: StudioStep; label: string }[] = [
   { id: "question", label: "The question" },
@@ -33,20 +34,10 @@ export function Projects() {
       </div>
       <div id="work-index" className="studio-index">
         <div className="studio-index-heading">
-          <h3>The work index<span className="text-accent">.</span></h3>
-          <span className="studio-label">{String(projects.length).padStart(2, "0")} projects / Different kinds of making</span>
+          <h3>Browse the work<span className="text-accent">.</span></h3>
+          <span className="studio-label">{String(projects.length).padStart(2, "0")} projects / Products, research & field work</span>
         </div>
-        <div className="studio-index-list">
-          {projects.map((project, index) => (
-            <Link key={project.id} href={project.detailHref ?? `/projects/${project.id}`} className="studio-index-row">
-              <span className="studio-label text-fg-muted">{String(index + 1).padStart(2, "0")}</span>
-              <span className="studio-index-name">{project.title}</span>
-              <span className="studio-index-type">{project.type}</span>
-              <span className="studio-index-period">{project.period}</span>
-              <ArrowUpRight aria-hidden size={19} strokeWidth={1.5} />
-            </Link>
-          ))}
-        </div>
+        <ProjectIndex />
         <details className="studio-archive">
           <summary>Earlier collaborations <span className="studio-label">{projectArchive.length} more</span></summary>
           {projectArchive.map((project) => (

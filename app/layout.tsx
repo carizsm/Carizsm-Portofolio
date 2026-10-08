@@ -3,9 +3,11 @@ import { Inter, Instrument_Serif } from "next/font/google";
 import { ThemeProvider, THEME_INIT_SCRIPT } from "@/components/ThemeProvider";
 import { Nav } from "@/components/Nav";
 import { personal } from "@/content/personal";
+import { brand } from "@/content/brand";
 import { getSiteUrl } from "@/lib/site-url";
 import "./globals.css";
 import "./studio.css";
+import "./explorations.css";
 
 const siteUrl = getSiteUrl();
 
@@ -25,9 +27,10 @@ const instrumentSerif = Instrument_Serif({
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
+  applicationName: brand.name,
   title: {
-    default: `${personal.name} — Designer · Engineer · Builder`,
-    template: `%s — ${personal.shortName}`,
+    default: brand.title,
+    template: `%s — ${brand.name}`,
   },
   description: personal.tagline,
   keywords: [
@@ -47,13 +50,13 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_US",
     url: siteUrl,
-    title: `${personal.name} — Designer · Engineer · Builder`,
+    title: brand.title,
     description: personal.tagline,
-    siteName: personal.shortName,
+    siteName: brand.name,
   },
   twitter: {
     card: "summary_large_image",
-    title: `${personal.name} — Designer · Engineer · Builder`,
+    title: brand.title,
     description: personal.tagline,
   },
   robots: {
