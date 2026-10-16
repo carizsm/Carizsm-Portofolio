@@ -124,7 +124,7 @@ export const projects: Project[] = [
       "Recharts",
     ],
     outcome:
-      "Built as a mobile-first MVP to reduce friction in group travel planning.",
+      "Working MVP with itinerary planning, shared budgets, expenses, and member collaboration.",
     type: "Self-initiated",
     featured: true,
     links: {
@@ -137,7 +137,7 @@ export const projects: Project[] = [
     detail: {
       eyebrow: "Self-initiated MVP / Travel planning",
       headline:
-        "Planning a group trip should feel exciting, not chaotic.",
+        "Itineraries, budgets, and shared expenses in one trip workspace.",
       summary:
         "Iterra was built as a collaborative workspace for itinerary planning, budgeting, split-cost calculation, member decisions, and trip review. The product direction came from a simple pain point: group travel often breaks down because plans, money, and decisions live in too many separate chats and spreadsheets.",
       featureEyebrow: "Product scope",
@@ -150,7 +150,7 @@ export const projects: Project[] = [
             "built as a self-initiated product prototype for end-to-end planning flows",
         },
         {
-          value: "6 tools",
+          value: "6 flows",
           label:
             "itinerary, budget, expenses, split costs, members, and trip review in one flow",
         },
@@ -167,9 +167,9 @@ export const projects: Project[] = [
             "Group trips often become messy because the plan is split across chat threads, notes, payment screenshots, and individual assumptions. Iterra frames travel planning as a shared workspace rather than a private checklist.",
         },
         {
-          title: "Solution",
+          title: "Product Decision",
           body:
-            "The MVP combines itinerary planning, budget visibility, expense tracking, split-cost calculation, and collaborative member decisions. The goal is to make the next action clear for every person in the trip.",
+            "I brought the itinerary, budget, expenses, and member decisions into one shared trip workspace. The overview gives a view of the whole trip; dedicated screens let members inspect the details of a schedule or shared costs. This is the product direction implemented in the MVP.",
         },
         {
           title: "My Role",
@@ -177,9 +177,9 @@ export const projects: Project[] = [
             "I owned the product direction and implementation, translating the planning problem into a mobile-first interface, data model, demo mode, and working web app built with a modern Next.js stack.",
         },
         {
-          title: "Design Direction",
+          title: "Evidence & Limits",
           body:
-            "The visual system uses a calm warm-earthy, premium minimalist tone so trip planning feels organized and inviting instead of administrative.",
+            "The screenshots show the working app in demo mode with sample trip data. They demonstrate the interface and product scope; they do not establish adoption or a measured improvement in travel planning. The public repository is available for a closer look at the implementation.",
         },
       ],
       features: [

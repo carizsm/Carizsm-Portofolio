@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowLeft, ArrowRight, ExternalLink } from "lucide-react";
+import { ArrowLeft, ArrowRight, ArrowUpRight, ExternalLink } from "lucide-react";
 import { ProjectMediaCarousel } from "@/components/ProjectMediaCarousel";
 import { projects, type Project } from "@/content/projects";
 import "@/app/case-study.css";
@@ -107,6 +107,11 @@ function CaseStudyDetail({
           </dl>
         </div>
         {project.outcome && <p className="case-outcome"><span className="studio-label">At a glance</span>{project.outcome}</p>}
+        {project.links && <div className="case-project-links">
+          {project.links.live && <a href={project.links.live} className="portfolio-link" target="_blank" rel="noopener noreferrer">Visit project<ArrowUpRight size={17} aria-hidden /><span className="sr-only"> (opens in a new tab)</span></a>}
+          {project.links.repo && <a href={project.links.repo} className="portfolio-link" target="_blank" rel="noopener noreferrer">Source code<ArrowUpRight size={17} aria-hidden /><span className="sr-only"> (opens in a new tab)</span></a>}
+          {project.links.paper && <a href={project.links.paper} className="portfolio-link" target="_blank" rel="noopener noreferrer">Read paper<ArrowUpRight size={17} aria-hidden /><span className="sr-only"> (opens in a new tab)</span></a>}
+        </div>}
         {detail.certificateUrl && (
           <a href={detail.certificateUrl} target="_blank" rel="noopener noreferrer" className="studio-text-link">
             View competition certificate<ExternalLink size={15} aria-hidden /><span className="sr-only"> (opens in a new tab)</span>

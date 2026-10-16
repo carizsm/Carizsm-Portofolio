@@ -2,12 +2,15 @@ import type { Metadata, Viewport } from "next";
 import { Inter, Instrument_Serif } from "next/font/google";
 import { ThemeProvider, THEME_INIT_SCRIPT } from "@/components/ThemeProvider";
 import { Nav } from "@/components/Nav";
+import { PortfolioMotion } from "@/components/PortfolioMotion";
 import { personal } from "@/content/personal";
 import { brand } from "@/content/brand";
 import { getSiteUrl } from "@/lib/site-url";
 import "./globals.css";
 import "./studio.css";
 import "./explorations.css";
+import "./portfolio.css";
+import "./story.css";
 
 const siteUrl = getSiteUrl();
 
@@ -67,8 +70,8 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = {
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#f5f3ed" },
-    { media: "(prefers-color-scheme: dark)", color: "#151923" },
+    { media: "(prefers-color-scheme: light)", color: "#f3efe7" },
+    { media: "(prefers-color-scheme: dark)", color: "#171c1b" },
   ],
 };
 
@@ -92,6 +95,7 @@ export default function RootLayout({
         className="min-h-screen bg-bg font-sans text-fg antialiased selection:bg-accent selection:text-accent-fg"
       >
         <ThemeProvider>
+          <PortfolioMotion>
           <a
             href="#main"
             className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[60] focus:rounded-md focus:bg-fg focus:px-3 focus:py-2 focus:text-sm focus:text-bg"
@@ -100,6 +104,7 @@ export default function RootLayout({
           </a>
           <Nav />
           <main id="main">{children}</main>
+          </PortfolioMotion>
         </ThemeProvider>
       </body>
     </html>

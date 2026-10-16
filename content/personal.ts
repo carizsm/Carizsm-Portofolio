@@ -10,7 +10,7 @@ export const personal = {
   initials: "CR",
   role: "Designer · Engineer · Builder",
   tagline:
-    "Final-year IT student turning ideas into intuitive, human-centered products.",
+    "Software engineer working across frontend, backend, web products, and applied research.",
   location: "Bandung, Indonesia",
   email: "cahyarizqi3@gmail.com",
   links: {

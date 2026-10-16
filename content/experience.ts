@@ -35,7 +35,7 @@ export const experiences: Experience[] = [
     start: "Aug 2026",
     end: "Present",
     summary:
-      "Develop backend services that support educational and operational workflows. Collaborate with frontend developers and stakeholders to deliver reliable features, data flows, and system integrations.",
+      "Build backend services, data flows, and integrations for educational and operational workflows.",
     tags: ["Backend development", "Collaboration", "Education"],
   },
   {
@@ -45,7 +45,7 @@ export const experiences: Experience[] = [
     start: "Jan 2026",
     end: "Present",
     summary:
-      "Build responsive interfaces for educational platforms, supporting learning and operational workflows in collaboration with the wider development team.",
+      "Build responsive interfaces for educational platforms with the wider development team.",
     tags: ["Vue 3", "Nuxt 3", "REST", "Education"],
   },
   {

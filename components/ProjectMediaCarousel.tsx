@@ -2,16 +2,18 @@
 
 import Image from "next/image";
 import { ArrowUpRight, ChevronLeft, ChevronRight } from "lucide-react";
-import { motion, useReducedMotion } from "motion/react";
+import { motion } from "motion/react";
 import { useId, useRef, useState } from "react";
 import type { KeyboardEvent, PointerEvent } from "react";
 import type { ProjectMedia } from "@/content/projects";
+import { motionTokens } from "@/lib/motion-tokens";
+import { usePortfolioMotion } from "./PortfolioMotion";
 import "@/app/project-gallery.css";
 
 export function ProjectMediaCarousel({ media }: { media: ProjectMedia[] }) {
   const [index, setIndex] = useState(0);
   const galleryId = useId();
-  const reduceMotion = useReducedMotion();
+  const { enabled } = usePortfolioMotion();
   const pointerStart = useRef<{ x: number; y: number; id: number } | null>(null);
 
   if (media.length === 0) return null;
@@ -69,9 +71,9 @@ export function ProjectMediaCarousel({ media }: { media: ProjectMedia[] }) {
           <motion.div
             key={active.src}
             className="project-gallery-image"
-            initial={reduceMotion ? false : { opacity: 0.5 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: reduceMotion ? 0 : 0.18 }}
+            initial={false}
+            animate={{ opacity: enabled ? [0.75, 1] : 1 }}
+            transition={{ duration: enabled ? motionTokens.duration.fast : 0 }}
           >
             <Image
               src={active.src}
@@ -96,7 +98,7 @@ export function ProjectMediaCarousel({ media }: { media: ProjectMedia[] }) {
                 {String(media.length).padStart(2, "0")}
               </span>
             )}
-            {active.caption}
+            {active.caption}{active.src.endsWith(".svg") && " · Illustration"}
           </p>
           <a href={active.src} target="_blank" rel="noopener noreferrer">
             View original <ArrowUpRight size={14} aria-hidden="true" />

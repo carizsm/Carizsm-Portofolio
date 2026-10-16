@@ -1,36 +1,10 @@
 "use client";
-
-import { motion, useReducedMotion } from "motion/react";
+import { motion } from "motion/react";
 import type { ReactNode } from "react";
-
-const easing = [0.22, 1, 0.36, 1] as const;
-
-export function Reveal({
-  children,
-  delay = 0,
-  y = 12,
-  className,
-  as: Tag = "div",
-}: {
-  children: ReactNode;
-  delay?: number;
-  y?: number;
-  className?: string;
-  as?: "div" | "span" | "li" | "p" | "header";
-}) {
-  const reduce = useReducedMotion();
+import { motionTokens } from "@/lib/motion-tokens";
+import { usePortfolioMotion } from "./PortfolioMotion";
+export function Reveal({ children, delay = 0, y = motionTokens.distance.entrance, className, as: Tag = "div" }: { children: ReactNode; delay?: number; y?: number; className?: string; as?: "div" | "span" | "li" | "p" | "header" }) {
+  const { enabled } = usePortfolioMotion();
   const MotionTag = motion[Tag];
-
-  return (
-    <MotionTag
-      initial={false}
-      animate={reduce ? { y: 0 } : undefined}
-      whileInView={reduce ? undefined : { y: [y, 0] }}
-      viewport={{ once: true, amount: 0.12 }}
-      transition={{ duration: reduce ? 0 : 0.45, ease: easing, delay: reduce ? 0 : Math.min(delay, 0.12) }}
-      className={className}
-    >
-      {children}
-    </MotionTag>
-  );
+  return <MotionTag initial={false} whileInView={enabled ? { y: [y, 0], opacity: [0.5, 1] } : undefined} animate={!enabled ? { y: 0, opacity: 1 } : undefined} viewport={{ once: true, amount: 0.2 }} transition={{ duration: enabled ? motionTokens.duration.slow : 0, ease: motionTokens.easing.smooth, delay: enabled ? Math.min(delay, motionTokens.duration.normal) : 0 }} className={className}>{children}</MotionTag>;
 }
