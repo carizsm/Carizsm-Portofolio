@@ -62,26 +62,30 @@ export function IterraScene() {
     <header className="portfolio-shell story-product-heading">
       <div className="story-project-meta"><h3 id="iterra-title" className="eyebrow">Iterra / 2026</h3><span className="eyebrow">Product direction & implementation</span></div>
       <Reveal><p className="story-premise">One trip.<br /><em>One shared place.</em></p></Reveal>
-      <p className="story-product-intro">Plans in chats. Costs in notes.<br /> I brought them into one workspace.</p>
+      <div className="story-product-intro">
+        <p>Plans in chats. Costs in notes.<br /> I brought them into one workspace.</p>
+        <p className="story-product-brief">Product direction · Interface · Data model<br />Next.js · TypeScript · Supabase</p>
+        <Link href="/projects/iterra" className="portfolio-link">Inside the project<ArrowUpRight size={16} aria-hidden /></Link>
+      </div>
     </header>
     <div ref={scene} className="story-product-scene portfolio-shell" data-scene-motion={sceneMotion}>
       <div className="iterra-visual story-product-visual">
         <div className="artifact-toolbar"><span className="eyebrow">Working MVP</span><span className="artifact-status">Sample trip data</span></div>
         <motion.figure id="iterra-view-panel" className="iterra-screen" style={sceneMotion ? { scale, y } : undefined}>
           <div className="iterra-image">
-            {media.map((image, index) => <motion.div key={image.src} className="story-capture-layer" data-active={view === index} aria-hidden={view !== index} initial={false} animate={{ opacity: view === index ? 1 : 0 }} transition={{ duration: enabled ? motionTokens.duration.fast : 0 }}>
+            {media.map((image, index) => <motion.div key={image.src} className="story-capture-layer" data-active={view === index} aria-hidden={view !== index} initial={false} animate={{ opacity: view === index ? 1 : 0 }} transition={{ duration: enabled ? motionTokens.duration.normal : 0 }}>
               <Image src={image.src} alt={image.alt} fill sizes="(max-width: 900px) 90vw, 820px" />
             </motion.div>)}
           </div>
-          <figcaption><span>{media[view].caption.split(" · ")[0]}</span><a href={media[view].src} target="_blank" rel="noopener noreferrer">Full image<ArrowUpRight size={15} aria-hidden /><span className="sr-only"> (opens in a new tab)</span></a></figcaption>
+          <figcaption>{media[view].caption.split(" · ")[0]}</figcaption>
         </motion.figure>
         <div className="scene-view-controls" role="group" aria-label="Iterra product views">
           {media.map((image, index) => <button key={image.src} type="button" aria-pressed={view === index} aria-controls="iterra-view-panel" onClick={() => selectView(index)}>
             <span className="eyebrow">0{index + 1}</span>{image.caption.split(" · ")[0]}
-            {view === index && <motion.i aria-hidden layoutId="iterra-view" transition={{ duration: enabled ? motionTokens.duration.normal : 0, ease: motionTokens.easing.smooth }} />}
+            {view === index && <motion.i aria-hidden layoutId="iterra-view" transition={enabled ? springs.snappy : { duration: 0 }} />}
           </button>)}
         </div>
-        <p className="story-reading-cue eyebrow" aria-hidden>{sceneMotion ? <><span>0{activeChapter + 1} / 03</span>{iterraChapters[activeChapter].label}</> : "Product direction · Interface · Data model"}</p>
+        {sceneMotion && <p className="story-reading-cue eyebrow" aria-hidden><span>0{activeChapter + 1} / 03</span>{iterraChapters[activeChapter].label}</p>}
         <p className="sr-only" role="status">{announcement}</p>
       </div>
       <div className="story-product-chapters">

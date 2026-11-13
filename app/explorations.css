@@ -1,8 +1,6 @@
 .work-preview-image { position: relative; aspect-ratio: 16/10; background: #fff; overflow: hidden; }
 .work-preview-image > div { position: absolute; inset: 0; }
-.work-preview figcaption { display: flex; align-items: center; justify-content: space-between; gap: 18px; padding-block: 8px; font-size: 11px; line-height: 1.7; color: var(--color-fg-muted); }
-.work-preview figcaption > span { max-width: 70%; }
-.work-preview figcaption a { min-height: 44px; display: inline-flex; align-items: center; gap: 7px; white-space: nowrap; color: var(--color-fg); }
+.work-preview figcaption { padding-block: 12px; font-size: 11px; line-height: 1.7; color: var(--color-fg-muted); text-wrap: pretty; }
 .preview-view-controls { display: flex; gap: 24px; border-bottom: 1px solid var(--color-border-strong); }
 .preview-view-controls button { position: relative; display: inline-flex; align-items: center; gap: 9px; min-height: 52px; padding-block: 10px; font-size: 12px; color: var(--color-fg-muted); cursor: pointer; }
 .preview-view-controls button[aria-pressed=true] { color: var(--color-fg); }
@@ -48,7 +46,7 @@
   .organization-detail { padding-left: 29px; }
   .organization-role { padding-left: 14px; }
   .organization-role > p:not(.studio-label) { font-size: 13px; }
-  .work-preview figcaption { font-size: 10px; gap: 12px; }
+  .work-preview figcaption { font-size: 10px; }
   .preview-view-controls { gap: 15px; }
   .preview-view-controls button { font-size: 11px; gap: 6px; }
 }

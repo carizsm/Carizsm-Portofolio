@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { ArrowUpRight, ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import { motion } from "motion/react";
 import { useId, useRef, useState } from "react";
 import type { KeyboardEvent, PointerEvent } from "react";
@@ -68,23 +68,24 @@ export function ProjectMediaCarousel({ media }: { media: ProjectMedia[] }) {
           onPointerUp={handlePointerUp}
           onPointerCancel={() => { pointerStart.current = null; }}
         >
-          <motion.div
-            key={active.src}
+          {media.map((item, itemIndex) => <motion.div
+            key={item.src}
             className="project-gallery-image"
+            aria-hidden={itemIndex !== activeIndex}
             initial={false}
-            animate={{ opacity: enabled ? [0.75, 1] : 1 }}
-            transition={{ duration: enabled ? motionTokens.duration.fast : 0 }}
+            animate={{ opacity: itemIndex === activeIndex ? 1 : 0 }}
+            transition={{ duration: enabled ? motionTokens.duration.normal : 0 }}
           >
             <Image
-              src={active.src}
-              alt={active.alt}
+              src={item.src}
+              alt={item.alt}
               fill
               sizes="(min-width: 1240px) 1160px, (min-width: 1001px) calc(100vw - 80px), (min-width: 401px) calc(100vw - 48px), calc(100vw - 36px)"
-              className={active.fit === "contain" ? "gallery-image-contain" : "gallery-image-cover"}
+              className={item.fit === "contain" ? "gallery-image-contain" : "gallery-image-cover"}
               draggable={false}
-              priority={activeIndex === 0}
+              priority={itemIndex === 0}
             />
-          </motion.div>
+          </motion.div>)}
         </div>
 
         <figcaption className="project-gallery-caption">
@@ -100,16 +101,12 @@ export function ProjectMediaCarousel({ media }: { media: ProjectMedia[] }) {
             )}
             {active.caption}{active.src.endsWith(".svg") && " · Illustration"}
           </p>
-          <a href={active.src} target="_blank" rel="noopener noreferrer">
-            View original <ArrowUpRight size={14} aria-hidden="true" />
-            <span className="sr-only"> (opens in a new tab)</span>
-          </a>
         </figcaption>
       </figure>
 
       {hasMultipleItems && (
         <div className="project-gallery-controls">
-          <p className="project-gallery-hint">Explore the images</p>
+          <p className="project-gallery-hint"><span className="gallery-keyboard-hint">Use arrow keys to browse</span><span className="gallery-touch-hint">Swipe to browse</span></p>
           <div className="project-gallery-navigation" role="group" aria-label="Image navigation">
             <button type="button" onClick={() => move(-1)} aria-label="Previous image" aria-controls={galleryId}>
               <ChevronLeft size={18} aria-hidden="true" />

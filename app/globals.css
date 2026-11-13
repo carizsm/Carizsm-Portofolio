@@ -87,6 +87,29 @@ main {
   outline-offset: 3px;
 }
 
+@media (prefers-reduced-motion: no-preference) {
+  .portfolio-motion-root :where(button:enabled, summary, a.portfolio-button, a.portfolio-link) {
+    transition-property: scale, color, background-color, border-color;
+    transition-duration: .22s;
+    transition-timing-function: cubic-bezier(.22, 1, .36, 1);
+  }
+
+  .portfolio-motion-root :where(button:enabled, summary, a.portfolio-button, a.portfolio-link):active {
+    scale: .97;
+    transition-duration: .09s;
+  }
+
+  .portfolio-motion-root :where(.organization-toggle, .recognition-disclosure > summary, .experience-history > summary, .story-explore-panel > summary, .earlier-work > summary):active {
+    scale: .992;
+  }
+}
+
+@media (hover: hover) {
+  .portfolio-motion-root :where(button:enabled, summary):hover {
+    color: var(--color-accent);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
